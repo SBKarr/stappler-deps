@@ -14,7 +14,7 @@ include $(PREBUILT_STATIC_LIBRARY)
 include $(CLEAR_VARS)
 LOCAL_MODULE := cocos_png_static
 LOCAL_MODULE_FILENAME := png
-LOCAL_SRC_FILES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/lib/libpng.a
+LOCAL_SRC_FILES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/lib/libpng16.a
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/include
 include $(PREBUILT_STATIC_LIBRARY)
 
@@ -63,33 +63,6 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := sqlite_static
 LOCAL_MODULE_FILENAME := libsqlite
 LOCAL_SRC_FILES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/lib/libsqlite3.a
-LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/include
-include $(PREBUILT_STATIC_LIBRARY)
-
-
-### Pixman
-include $(CLEAR_VARS)
-LOCAL_MODULE := pixman_static
-LOCAL_MODULE_FILENAME := pixman
-LOCAL_SRC_FILES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/lib/libpixman-1.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-
-### Cairo
-include $(CLEAR_VARS)
-LOCAL_MODULE := cairo_static
-LOCAL_MODULE_FILENAME := cairo
-LOCAL_SRC_FILES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/lib/libcairo.a
-LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/include/cairo
-LOCAL_WHOLE_STATIC_LIBRARIES := pixman_static
-include $(PREBUILT_STATIC_LIBRARY)
-
-
-### Cairo
-include $(CLEAR_VARS)
-LOCAL_MODULE := libtess2_static
-LOCAL_MODULE_FILENAME := libtess2
-LOCAL_SRC_FILES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/lib/libtess2.a
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/include
 include $(PREBUILT_STATIC_LIBRARY)
 

@@ -90,10 +90,19 @@ Director* Director::getInstance()
 
 Director::Director()
 {
+    _deltaTime = 0.0f;
 }
 
 bool Director::init(void)
 {
+    // FPS
+    _accumDt = 0.0f;
+    _frameRate = 0.0f;
+    _totalFrames = 0;
+    _lastUpdate = new struct timeval;
+    _secondsPerFrame = 1.0f;
+    _nextDeltaTimeZero = false;
+
     setDefaultValues();
 
     // scenes
@@ -103,13 +112,6 @@ bool Director::init(void)
     _notificationNode = nullptr;
 
     _scenesStack.reserve(15);
-
-    // FPS
-    _accumDt = 0.0f;
-    _frameRate = 0.0f;
-    _totalFrames = 0;
-    _lastUpdate = new struct timeval;
-    _secondsPerFrame = 1.0f;
 
     // paused ?
     _paused = false;
@@ -143,7 +145,6 @@ bool Director::init(void)
     _eventAfterUpdate->setUserData(this);
     _eventProjectionChanged = new (std::nothrow) EventCustom(EVENT_PROJECTION_CHANGED);
     _eventProjectionChanged->setUserData(this);
-
 
     //init TextureCache
     initTextureCache();
