@@ -604,18 +604,7 @@ bool Texture2D::init(Texture2D::PixelFormat pixelFormat, int pixelsWide, int pix
     			pixelFormat = PixelFormat::R8;
     		}
     		break;
-    	case PixelFormat::BGRA8888:
-		case PixelFormat::PVRTC4:
-		case PixelFormat::PVRTC4A:
-		case PixelFormat::PVRTC2:
-		case PixelFormat::PVRTC2A:
-		case PixelFormat::ETC:
-		case PixelFormat::S3TC_DXT1:
-		case PixelFormat::S3TC_DXT3:
-		case PixelFormat::S3TC_DXT5:
-		case PixelFormat::ATC_RGB:
-		case PixelFormat::ATC_EXPLICIT_ALPHA:
-		case PixelFormat::ATC_INTERPOLATED_ALPHA:
+    	default:
 			assert(false); // unsupported as render parget
 			break;
     	}
