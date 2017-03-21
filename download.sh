@@ -12,35 +12,35 @@ function get_jpeg() {
 }
 
 function get_png() {
-	wget http://prdownloads.sourceforge.net/libpng/libpng-1.6.26.tar.gz
-	tar -xzf libpng-1.6.26.tar.gz
-	rm libpng-1.6.26.tar.gz
-	mv libpng-1.6.26 libpng
+	wget http://download.sourceforge.net/libpng/libpng-1.6.28.tar.gz
+	tar -xzf libpng-1.6.28.tar.gz
+	rm libpng-1.6.28.tar.gz
+	mv libpng-1.6.28 libpng
 }
 
 function get_mbedtls() {
-	git clone https://github.com/ARMmbed/mbedtls.git --branch mbedtls-2.4.1 --single-branch
+	git clone https://github.com/ARMmbed/mbedtls.git --branch mbedtls-2.4.2 --single-branch
 }
 
 function get_curl() {
-	wget https://curl.haxx.se/download/curl-7.51.0.tar.gz
-	tar -xzf curl-7.51.0.tar.gz
-	rm curl-7.51.0.tar.gz
-	mv curl-7.51.0 curl
+	wget https://curl.haxx.se/download/curl-7.53.1.tar.gz
+	tar -xzf curl-7.53.1.tar.gz
+	rm curl-7.53.1.tar.gz
+	mv curl-7.53.1 curl
 }
 
 function get_freetype() {
-	wget http://ftp.acc.umu.se/mirror/gnu.org/savannah//freetype/freetype-2.7.tar.gz
-	tar -xzf freetype-2.7.tar.gz
-	rm freetype-2.7.tar.gz
-	mv freetype-2.7 freetype
+	wget http://download.savannah.gnu.org/releases/freetype/freetype-2.7.1.tar.gz
+	tar -xzf freetype-2.7.1.tar.gz
+	rm freetype-2.7.1.tar.gz
+	mv freetype-2.7.1 freetype
 }
 
 function get_sqlite() {
-	wget https://www.sqlite.org/2016/sqlite-amalgamation-3140000.zip
-	unzip sqlite-amalgamation-3140000.zip -d .
-	rm sqlite-amalgamation-3140000.zip
-	mv sqlite-amalgamation-3140000 sqlite
+	wget https://www.sqlite.org/2017/sqlite-amalgamation-3170000.zip
+	unzip sqlite-amalgamation-3170000.zip -d .
+	rm sqlite-amalgamation-3170000.zip
+	mv sqlite-amalgamation-3170000 sqlite
 }
 
 function get_glfw() {
@@ -54,8 +54,6 @@ get_jpeg
 get_png
 get_mbedtls
 get_curl
-get_pixman
-get_cairo
 get_freetype
 get_sqlite
 get_glfw

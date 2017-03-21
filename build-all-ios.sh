@@ -5,8 +5,6 @@ function build() {
 	./jpeg-ios.sh
 	./libpng-ios.sh
 	./curl-ios.sh
-	./pixman-ios.sh
-	./cairo-ios.sh
 	./freetype-ios.sh
 	./hyphen-ios.sh
 	cd -

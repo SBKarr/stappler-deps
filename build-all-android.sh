@@ -28,8 +28,6 @@ function build() {
 	./libpng-android.sh
 	./mbedtls-android.sh
 	./curl-android.sh
-	./pixman-android.sh
-	./cairo-android.sh
 	./freetype-android.sh
 	./sqlite-android.sh
 	./hyphen-android.sh
@@ -38,6 +36,7 @@ function build() {
 
 function export_dir() {
 	rm -f android/$1/include/png*
+	rm -rf android/$1/include/freetype
 	cp android/$1/include/libpng16/* android/$1/include
 	mv android/$1/include/freetype2/* android/$1/include
 	mv android/$1/lib/libpng16.a android/$1/lib/libpng.a

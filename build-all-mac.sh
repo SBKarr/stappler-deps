@@ -5,8 +5,6 @@ function build() {
 	./jpeg-mac.sh
 	./libpng-mac.sh
 	./curl-mac.sh
-	./pixman-mac.sh
-	./cairo-mac.sh
 	./freetype-mac.sh
 	./sqlite-mac.sh
 	./hyphen-mac.sh
