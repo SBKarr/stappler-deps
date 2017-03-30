@@ -44,6 +44,7 @@
 - (BOOL) resizeFromLayer:(CAEAGLLayer *)layer;
 
 - (EAGLContext*) context;
+- (EAGLContext*) sharedContext;
 - (CGSize) backingSize;
 
 - (unsigned int) colorRenderBuffer;

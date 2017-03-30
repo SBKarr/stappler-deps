@@ -35,11 +35,18 @@
 
 NS_CC_BEGIN
 
-void* GLViewImpl::_pixelFormat = kEAGLColorFormatRGB565;
+struct CCEAGLViewStorage {
+	CCEAGLView *view;
+};
+
+struct CCNSStringStorage {
+	NSString *string;
+};
+
+CCNSStringStorage * GLViewImpl::_pixelFormat = nullptr;
 int GLViewImpl::_depthFormat = GL_DEPTH_COMPONENT16;
 
-GLViewImpl* GLViewImpl::createWithEAGLView(void *eaglview)
-{
+GLViewImpl* GLViewImpl::createWithEAGLView(CCEAGLViewStorage *eaglview) {
     auto ret = new (std::nothrow) GLViewImpl;
     if(ret && ret->initWithEAGLView(eaglview)) {
         ret->autorelease();
@@ -86,11 +93,17 @@ void GLViewImpl::convertAttrs()
 {
     if(_glContextAttrs.redBits==8 && _glContextAttrs.greenBits==8 && _glContextAttrs.blueBits==8 && _glContextAttrs.alphaBits==8)
     {
-        _pixelFormat = kEAGLColorFormatRGBA8;
+    	if (_pixelFormat) {
+    		delete _pixelFormat;
+    	}
+        _pixelFormat = new CCNSStringStorage{kEAGLColorFormatRGBA8};
     }
     if(_glContextAttrs.depthBits==24 && _glContextAttrs.stencilBits==8)
     {
         _depthFormat = GL_DEPTH24_STENCIL8_OES;
+    }
+    if (!_pixelFormat) {
+    	_pixelFormat = new CCNSStringStorage{kEAGLColorFormatRGB565};
     }
 }
 
@@ -100,14 +113,16 @@ GLViewImpl::GLViewImpl()
 
 GLViewImpl::~GLViewImpl()
 {
-    //CCEAGLView *glview = (CCEAGLView*) _eaglview;
-    //[glview release];
+    if (_eaglview) {
+    	delete _eaglview;
+    	_eaglview = nullptr;
+    }
 }
 
-bool GLViewImpl::initWithEAGLView(void *eaglview)
+bool GLViewImpl::initWithEAGLView(CCEAGLViewStorage *eaglview)
 {
     _eaglview = eaglview;
-    CCEAGLView *glview = (CCEAGLView*) _eaglview;
+    CCEAGLView *glview = _eaglview->view;
 
     _screenSize.width = _designResolutionSize.width = [glview getWidth];
     _screenSize.height = _designResolutionSize.height = [glview getHeight];
@@ -120,8 +135,8 @@ bool GLViewImpl::initWithRect(const std::string& viewName, Rect rect, float fram
 {
     CGRect r = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
     convertAttrs();
-    CCEAGLView *eaglview = [CCEAGLView viewWithFrame: r
-                                       pixelFormat: (NSString*)_pixelFormat
+    CCEAGLView *eaglview = [[CCEAGLView alloc] initWithFrame: r
+                                       pixelFormat: _pixelFormat->string
                                        depthFormat: _depthFormat
                                 preserveBackbuffer: NO
                                         sharegroup: nil
@@ -134,7 +149,7 @@ bool GLViewImpl::initWithRect(const std::string& viewName, Rect rect, float fram
     _screenSize.height = _designResolutionSize.height = [eaglview getHeight];
 //    _scaleX = _scaleY = [eaglview contentScaleFactor];
 
-    _eaglview = eaglview;
+    _eaglview = new CCEAGLViewStorage{eaglview};
 
     return true;
 }
@@ -161,7 +176,7 @@ bool GLViewImpl::setContentScaleFactor(float contentScaleFactor)
     CC_ASSERT(_resolutionPolicy == ResolutionPolicy::UNKNOWN); // cannot enable retina mode
     _scaleX = _scaleY = contentScaleFactor;
 
-    CCEAGLView *eaglview = (CCEAGLView*) _eaglview;
+    CCEAGLView *eaglview = _eaglview->view;
     [eaglview setNeedsLayout];
 
     return true;
@@ -169,7 +184,7 @@ bool GLViewImpl::setContentScaleFactor(float contentScaleFactor)
 
 float GLViewImpl::getContentScaleFactor() const
 {
-    CCEAGLView *eaglview = (CCEAGLView*) _eaglview;
+    CCEAGLView *eaglview = _eaglview->view;
 
     float scaleFactor = [eaglview contentScaleFactor];
 
@@ -183,7 +198,7 @@ void GLViewImpl::end()
     [CCDirectorCaller destroy];
     
     // destroy EAGLView
-    CCEAGLView *eaglview = (CCEAGLView*) _eaglview;
+    CCEAGLView *eaglview = _eaglview->view;
 
     [eaglview removeFromSuperview];
     //[eaglview release];
@@ -192,13 +207,13 @@ void GLViewImpl::end()
 
 void GLViewImpl::swapBuffers()
 {
-    CCEAGLView *eaglview = (CCEAGLView*) _eaglview;
+    CCEAGLView *eaglview = _eaglview->view;
     [eaglview swapBuffers];
 }
 
 void GLViewImpl::setIMEKeyboardState(bool open)
 {
-    CCEAGLView *eaglview = (CCEAGLView*) _eaglview;
+    CCEAGLView *eaglview = _eaglview->view;
 
     if (open)
     {
@@ -211,11 +226,15 @@ void GLViewImpl::setIMEKeyboardState(bool open)
 }
 
 void GLViewImpl::enableOffscreenContext() {
-    [EAGLContext setCurrentContext: ((CCEAGLView*) _eaglview).sharedContext];
+    [EAGLContext setCurrentContext: (_eaglview->view).sharedContext];
 }
 
 void GLViewImpl::disableOffscreenContext() {
     [EAGLContext setCurrentContext: nil];
+}
+
+void* GLViewImpl::getEAGLView() const {
+	return (__bridge void *)_eaglview->view;
 }
 
 NS_CC_END

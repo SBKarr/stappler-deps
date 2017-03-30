@@ -47,7 +47,6 @@ void MessageBox(const char * msg, const char * title)
                                                          delegate: nil
                                                 cancelButtonTitle: @"OK"
                                                 otherButtonTitles: nil];
-    [messageBox autorelease];
     [messageBox show];
 }
 

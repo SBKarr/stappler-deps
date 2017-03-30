@@ -35,6 +35,8 @@
 
 NS_CC_BEGIN
 
+struct CCEAGLViewStorage;
+struct CCNSStringStorage;
 
 /** Class that represent the OpenGL View
  */
@@ -42,7 +44,7 @@ class CC_DLL GLViewImpl : public GLView
 {
 public:
     /** creates a GLViewImpl with a objective-c CCEAGLViewImpl instance */
-    static GLViewImpl* createWithEAGLView(void* eaGLView);
+    static GLViewImpl* createWithEAGLView(CCEAGLViewStorage * eaGLView);
 
     /** creates a GLViewImpl with a title name in fullscreen mode */
     static GLViewImpl* create(const std::string& viewName);
@@ -54,7 +56,7 @@ public:
     static GLViewImpl* createWithFullScreen(const std::string& viewName);
     
     static void convertAttrs();
-    static void* _pixelFormat;
+    static CCNSStringStorage * _pixelFormat;
     static int _depthFormat;
 
     /** sets the content scale factor */
@@ -67,7 +69,7 @@ public:
     bool isRetinaDisplay() const override { return getContentScaleFactor() == 2.0; }
 
     /** returns the objective-c CCEAGLView instance */
-    void* getEAGLView() const override { return _eaglview; }
+    void* getEAGLView() const override;
 
     // overrides
     virtual bool isOpenGLReady() override;
@@ -82,12 +84,12 @@ protected:
     GLViewImpl();
     virtual ~GLViewImpl();
 
-    bool initWithEAGLView(void* eaGLView);
+    bool initWithEAGLView(CCEAGLViewStorage* eaGLView);
     bool initWithRect(const std::string& viewName, Rect rect, float frameZoomFactor);
     bool initWithFullScreen(const std::string& viewName);
 
     // the objective-c CCEAGLView instance
-    void *_eaglview;
+    CCEAGLViewStorage *_eaglview;
 };
 
 NS_CC_END

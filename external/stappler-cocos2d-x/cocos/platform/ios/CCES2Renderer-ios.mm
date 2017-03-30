@@ -60,9 +60,7 @@
         else
             context_ = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2 sharegroup:sharegroup];
 
-        if (!context_ || ![EAGLContext setCurrentContext:context_] )
-        {
-            [self release];
+        if (!context_ || ![EAGLContext setCurrentContext:context_] ) {
             return nil;
         }
 
@@ -250,10 +248,7 @@
     if ([EAGLContext currentContext] == context_)
         [EAGLContext setCurrentContext:nil];
 
-    [context_ release];
     context_ = nil;
-
-    [super dealloc];
 }
 
 @end
