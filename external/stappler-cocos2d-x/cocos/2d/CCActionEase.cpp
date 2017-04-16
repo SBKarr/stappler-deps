@@ -80,6 +80,11 @@ void ActionEase::update(float time)
 {
     _inner->update(time);
 }
+void ActionEase::onStopped() {
+	if (_inner) {
+		_inner->onStopped();
+	}
+}
 
 ActionInterval* ActionEase::getInnerAction()
 {

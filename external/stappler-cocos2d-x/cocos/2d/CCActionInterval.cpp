@@ -357,6 +357,15 @@ void Sequence::update(float t)
     _last = found;
 }
 
+void Sequence::onStopped() {
+	if (_actions[0]) {
+		_actions[0]->onStopped();
+	}
+	if (_actions[1]) {
+		_actions[1]->onStopped();
+	}
+}
+
 Sequence* Sequence::reverse() const
 {
     return Sequence::createWithTwoActions(_actions[1]->reverse(), _actions[0]->reverse());
@@ -475,6 +484,11 @@ bool Repeat::isDone(void) const
 {
     return _total == _times;
 }
+void Repeat::onStopped() {
+	if (_innerAction) {
+		_innerAction->onStopped();
+	}
+}
 
 Repeat* Repeat::reverse() const
 {
@@ -542,6 +556,11 @@ void RepeatForever::step(float dt)
 bool RepeatForever::isDone() const
 {
     return false;
+}
+void RepeatForever::onStopped() {
+	if (_innerAction) {
+		_innerAction->onStopped();
+	}
 }
 
 RepeatForever *RepeatForever::reverse() const
@@ -703,6 +722,14 @@ void Spawn::stop(void)
     _one->stop();
     _two->stop();
     ActionInterval::stop();
+}
+void Spawn::onStopped() {
+	if (_one) {
+		_one->onStopped();
+	}
+	if (_two) {
+		_two->onStopped();
+	}
 }
 
 void Spawn::update(float time)
@@ -2242,6 +2269,11 @@ void ReverseTime::update(float time)
         _other->update(1 - time);
     }
 }
+void ReverseTime::onStopped() {
+	if (_other) {
+		_other->onStopped();
+	}
+}
 
 ReverseTime* ReverseTime::reverse() const
 {
@@ -2319,6 +2351,11 @@ void TargetedAction::stop()
 void TargetedAction::update(float time)
 {
     _action->update(time);
+}
+void TargetedAction::onStopped() {
+	if (_action) {
+		_action->onStopped();
+	}
 }
 
 void TargetedAction::setForcedTarget(Node* forcedTarget)

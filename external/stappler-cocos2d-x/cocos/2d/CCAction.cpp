@@ -74,6 +74,8 @@ void Action::update(float time)
     CCLOG("[Action update]. override me");
 }
 
+void Action::onStopped() { }
+
 //
 // Speed
 //
@@ -138,6 +140,12 @@ void Speed::step(float dt)
 bool Speed::isDone() const
 {
     return _innerAction->isDone();
+}
+
+void Speed::onStopped() {
+	if (_innerAction) {
+		_innerAction->onStopped();
+	}
 }
 
 Speed *Speed::reverse() const

@@ -71,6 +71,7 @@ public:
     virtual void startWithTarget(Node *target) override;
     virtual void stop() override;
     virtual void update(float time) override;
+    virtual void onStopped() override;
 
 CC_CONSTRUCTOR_ACCESS:
     ActionEase() {}

@@ -104,6 +104,10 @@ public:
      * @param time A value between 0 and 1.
      */
     virtual void update(float time);
+
+    /** overload point - called when action removed with stopAction* function */
+    virtual void onStopped();
+
     /** Return certain target.
      *
      * @return A certain target.
@@ -265,6 +269,8 @@ public:
      * @return Is true if the action has finished.
      */
     virtual bool isDone() const  override;
+
+    virtual void onStopped() override;
 
 CC_CONSTRUCTOR_ACCESS:
     Speed();

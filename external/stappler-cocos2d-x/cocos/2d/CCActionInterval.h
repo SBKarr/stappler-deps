@@ -181,6 +181,7 @@ public:
      * @param t In seconds.
      */
     virtual void update(float t) override;
+    virtual void onStopped() override;
     
 CC_CONSTRUCTOR_ACCESS:
     Sequence() {}
@@ -248,6 +249,7 @@ public:
      */
     virtual void update(float dt) override;
     virtual bool isDone(void) const override;
+    virtual void onStopped() override;
     
 CC_CONSTRUCTOR_ACCESS:
     Repeat() {}
@@ -317,6 +319,7 @@ public:
      */
     virtual void step(float dt) override;
     virtual bool isDone(void) const override;
+    virtual void onStopped() override;
     
 CC_CONSTRUCTOR_ACCESS:
     RepeatForever()
@@ -402,6 +405,7 @@ public:
     virtual Spawn* reverse(void) const override;
     virtual void startWithTarget(Node *target) override;
     virtual void stop(void) override;
+    virtual void onStopped() override;
     /**
      * @param time In seconds.
      */
@@ -1397,6 +1401,7 @@ public:
      * @param time In seconds.
      */
     virtual void update(float time) override;
+    virtual void onStopped() override;
     
 CC_CONSTRUCTOR_ACCESS:
     ReverseTime();
@@ -1452,6 +1457,7 @@ public:
      * @param time In seconds.
      */
     virtual void update(float time) override;
+    virtual void onStopped() override;
     
 CC_CONSTRUCTOR_ACCESS:
     TargetedAction();

@@ -102,6 +102,9 @@ void ActionManager::removeActionAtIndex(ssize_t index, tHashElement *element)
         element->currentActionSalvaged = true;
     }
 
+    if (element->actions->arr[index]) {
+        ((Action *)element->actions->arr[index])->onStopped();
+    }
     ccArrayRemoveObjectAtIndex(element->actions, index, true);
 
     // update actionIndex in case we are in tick. looping over the actions
@@ -226,6 +229,10 @@ void ActionManager::removeAllActionsFromTarget(Node *target)
         {
             element->currentAction->retain();
             element->currentActionSalvaged = true;
+        }
+
+    	for (size_t i = 0; i < element->actions->num; ++ i) {
+    		((Action *)(element->actions->arr[i]))->onStopped();
         }
 
         ccArrayRemoveAllObjects(element->actions);
