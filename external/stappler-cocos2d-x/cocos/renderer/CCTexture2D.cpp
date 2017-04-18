@@ -70,13 +70,13 @@ namespace {
         PixelFormatInfoMapValue(Texture2D::PixelFormat::AI88, Texture2D::PixelFormatInfo(GL_LUMINANCE_ALPHA, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, 16, false, true)),
 
 #ifdef GL_RED_EXT
-		PixelFormatInfoMapValue(Texture2D::PixelFormat::R8, Texture2D::PixelFormatInfo(GL_RED_EXT, GL_RED_EXT, GL_UNSIGNED_BYTE, 8, false, false)),
+		PixelFormatInfoMapValue(Texture2D::PixelFormat::R8, Texture2D::PixelFormatInfo(GL_R8_EXT, GL_RED_EXT, GL_UNSIGNED_BYTE, 8, false, false)),
 #else
 		PixelFormatInfoMapValue(Texture2D::PixelFormat::R8, Texture2D::PixelFormatInfo(GL_R8, GL_RED, GL_UNSIGNED_BYTE, 8, false, false)),
 #endif
 
 #ifdef GL_RG_EXT
-		PixelFormatInfoMapValue(Texture2D::PixelFormat::AI88, Texture2D::PixelFormatInfo(GL_RG_EXT, GL_RG_EXT, GL_UNSIGNED_BYTE, 16, false, true)),
+		PixelFormatInfoMapValue(Texture2D::PixelFormat::AI88, Texture2D::PixelFormatInfo(GL_RG8_EXT, GL_RG_EXT, GL_UNSIGNED_BYTE, 16, false, true)),
 #else
 		PixelFormatInfoMapValue(Texture2D::PixelFormat::AI88, Texture2D::PixelFormatInfo(GL_RG8, GL_RG, GL_UNSIGNED_BYTE, 16, false, true)),
 #endif
