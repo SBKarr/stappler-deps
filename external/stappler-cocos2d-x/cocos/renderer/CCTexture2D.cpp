@@ -70,15 +70,23 @@ namespace {
         PixelFormatInfoMapValue(Texture2D::PixelFormat::AI88, Texture2D::PixelFormatInfo(GL_LUMINANCE_ALPHA, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, 16, false, true)),
 
 #ifdef GL_RED_EXT
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+		PixelFormatInfoMapValue(Texture2D::PixelFormat::R8, Texture2D::PixelFormatInfo(GL_RED_EXT, GL_RED_EXT, GL_UNSIGNED_BYTE, 8, false, false)),
+#else
 		PixelFormatInfoMapValue(Texture2D::PixelFormat::R8, Texture2D::PixelFormatInfo(GL_R8_EXT, GL_RED_EXT, GL_UNSIGNED_BYTE, 8, false, false)),
+#endif
 #else
 		PixelFormatInfoMapValue(Texture2D::PixelFormat::R8, Texture2D::PixelFormatInfo(GL_R8, GL_RED, GL_UNSIGNED_BYTE, 8, false, false)),
 #endif
 
 #ifdef GL_RG_EXT
-		PixelFormatInfoMapValue(Texture2D::PixelFormat::AI88, Texture2D::PixelFormatInfo(GL_RG8_EXT, GL_RG_EXT, GL_UNSIGNED_BYTE, 16, false, true)),
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+		PixelFormatInfoMapValue(Texture2D::PixelFormat::RG88, Texture2D::PixelFormatInfo(GL_RG_EXT, GL_RG_EXT, GL_UNSIGNED_BYTE, 16, false, true)),
 #else
-		PixelFormatInfoMapValue(Texture2D::PixelFormat::AI88, Texture2D::PixelFormatInfo(GL_RG8, GL_RG, GL_UNSIGNED_BYTE, 16, false, true)),
+		PixelFormatInfoMapValue(Texture2D::PixelFormat::RG88, Texture2D::PixelFormatInfo(GL_RG8_EXT, GL_RG_EXT, GL_UNSIGNED_BYTE, 16, false, true)),
+#endif
+#else
+		PixelFormatInfoMapValue(Texture2D::PixelFormat::RG88, Texture2D::PixelFormatInfo(GL_RG8, GL_RG, GL_UNSIGNED_BYTE, 16, false, true)),
 #endif
 
 
@@ -650,7 +658,10 @@ bool Texture2D::init(Texture2D::PixelFormat pixelFormat, int pixelsWide, int pix
 
         err = glGetError();
     	if (err != GL_NO_ERROR) {
-    		CCLOG("cocos2d: Texture2D: Error uploading compressed texture level: %u . glError: 0x%04X %d %d", 0, err, pixelsWide, pixelsHigh);
+#ifdef GL_RED_EXT
+			CCLOG("cocos2d: Texture2D: GL_RED_EXT enabled");
+#endif
+    		CCLOG("cocos2d: Texture2D: Error uploading texture: (0x%04X, 0x%04X) . glError: 0x%04X %d %d", info.internalFormat, info.format, err, pixelsWide, pixelsHigh);
     		return false;
     	}
     }
