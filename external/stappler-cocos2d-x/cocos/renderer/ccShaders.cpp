@@ -44,13 +44,6 @@ NS_CC_BEGIN
 #include "ccShader_PositionColor.vert"
 
 //
-#ifdef CC_WINDOWS_PHONE_8_1
-#include "ccShader_PositionColorTextureAsPointsize_wp81.vert"
-#else
-#include "ccShader_PositionColorTextureAsPointsize.vert"
-#endif
-
-//
 #include "ccShader_PositionTexture.frag"
 #include "ccShader_PositionTexture.vert"
 
@@ -67,15 +60,7 @@ NS_CC_BEGIN
 #include "ccShader_PositionTextureColor_noMVP.vert"
 
 //
-#include "ccShader_PositionTextureColorAlphaTest.frag"
-
-//
 #include "ccShader_PositionTexture_uColor.frag"
 #include "ccShader_PositionTexture_uColor.vert"
-
-#include "ccShader_PositionColorLengthTexture.frag"
-#include "ccShader_PositionColorLengthTexture.vert"
-
-#include "ccShader_UI_Gray.frag"
 
 NS_CC_END

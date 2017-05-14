@@ -37,17 +37,12 @@ NS_CC_BEGIN
 enum {
     kShaderType_PositionTextureColor,
     kShaderType_PositionTextureColor_noMVP,
-    kShaderType_PositionTextureColorAlphaTest,
-    kShaderType_PositionTextureColorAlphaTestNoMV,
     kShaderType_PositionColor,
-    kShaderType_PositionColorTextureAsPointsize,
     kShaderType_PositionColor_noMVP,
     kShaderType_PositionTexture,
     kShaderType_PositionTexture_uColor,
     kShaderType_PositionTextureA8Color,
     kShaderType_Position_uColor,
-    kShaderType_PositionLengthTexureColor,
-    kShaderType_UIGrayScale,
     kShaderType_MAX,
 };
 
@@ -103,26 +98,12 @@ void GLProgramCache::loadDefaultGLPrograms()
     loadDefaultGLProgram(p, kShaderType_PositionTextureColor_noMVP);
     _programs.insert( std::make_pair( GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP, p ) );
 
-    // Position Texture Color alpha test
-    p = new (std::nothrow) GLProgram();
-    loadDefaultGLProgram(p, kShaderType_PositionTextureColorAlphaTest);
-    _programs.insert( std::make_pair(GLProgram::SHADER_NAME_POSITION_TEXTURE_ALPHA_TEST, p) );
-
-    // Position Texture Color alpha test
-    p = new (std::nothrow) GLProgram();
-    loadDefaultGLProgram(p, kShaderType_PositionTextureColorAlphaTestNoMV);
-    _programs.insert( std::make_pair(GLProgram::SHADER_NAME_POSITION_TEXTURE_ALPHA_TEST_NO_MV, p) );
     //
     // Position, Color shader
     //
     p = new (std::nothrow) GLProgram();
     loadDefaultGLProgram(p, kShaderType_PositionColor);
     _programs.insert( std::make_pair(GLProgram::SHADER_NAME_POSITION_COLOR, p) );
-
-    // Position, Color, PointSize shader
-    p = new (std::nothrow) GLProgram();
-    loadDefaultGLProgram(p, kShaderType_PositionColorTextureAsPointsize);
-    _programs.insert( std::make_pair(GLProgram::SHADER_NAME_POSITION_COLOR_TEXASPOINTSIZE, p) );
 
     //
     // Position, Color shader no MVP
@@ -158,17 +139,6 @@ void GLProgramCache::loadDefaultGLPrograms()
     p = new (std::nothrow) GLProgram();
     loadDefaultGLProgram(p, kShaderType_Position_uColor);
     _programs.insert( std::make_pair(GLProgram::SHADER_NAME_POSITION_U_COLOR, p) );
-
-    //
-    // Position, Legth(TexCoords, Color (used by Draw Node basically )
-    //
-    p = new (std::nothrow) GLProgram();
-    loadDefaultGLProgram(p, kShaderType_PositionLengthTexureColor);
-    _programs.insert( std::make_pair(GLProgram::SHADER_NAME_POSITION_LENGTH_TEXTURE_COLOR, p) );
-
-    p = new (std::nothrow) GLProgram();
-    loadDefaultGLProgram(p, kShaderType_UIGrayScale);
-    _programs.insert(std::make_pair(GLProgram::SHADER_NAME_POSITION_GRAYSCALE, p));
 }
 
 void GLProgramCache::reloadDefaultGLPrograms()
@@ -185,26 +155,12 @@ void GLProgramCache::reloadDefaultGLPrograms()
     p->reset();
     loadDefaultGLProgram(p, kShaderType_PositionTextureColor_noMVP);
 
-    // Position Texture Color alpha test
-    p = getGLProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE_ALPHA_TEST);
-    p->reset();
-    loadDefaultGLProgram(p, kShaderType_PositionTextureColorAlphaTest);
-
-    // Position Texture Color alpha test
-    p = getGLProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE_ALPHA_TEST_NO_MV);
-    p->reset();
-    loadDefaultGLProgram(p, kShaderType_PositionTextureColorAlphaTestNoMV);
     //
     // Position, Color shader
     //
     p = getGLProgram(GLProgram::SHADER_NAME_POSITION_COLOR);
     p->reset();
     loadDefaultGLProgram(p, kShaderType_PositionColor);
-
-    // Position, Color, PointSize shader
-    p = getGLProgram(GLProgram::SHADER_NAME_POSITION_COLOR_TEXASPOINTSIZE);
-    p->reset();
-    loadDefaultGLProgram(p, kShaderType_PositionColorTextureAsPointsize);
 
     //
     // Position, Color shader no MVP
@@ -239,13 +195,6 @@ void GLProgramCache::reloadDefaultGLPrograms()
     p = getGLProgram(GLProgram::SHADER_NAME_POSITION_U_COLOR);
     p->reset();
     loadDefaultGLProgram(p, kShaderType_Position_uColor);
-
-    //
-    // Position, Legth(TexCoords, Color (used by Draw Node basically )
-    //
-    p = getGLProgram(GLProgram::SHADER_NAME_POSITION_LENGTH_TEXTURE_COLOR);
-    p->reset();
-    loadDefaultGLProgram(p, kShaderType_PositionLengthTexureColor);
 }
 
 void GLProgramCache::loadDefaultGLProgram(GLProgram *p, int type)
@@ -257,17 +206,8 @@ void GLProgramCache::loadDefaultGLProgram(GLProgram *p, int type)
         case kShaderType_PositionTextureColor_noMVP:
             p->initWithByteArrays(ccPositionTextureColor_noMVP_vert, ccPositionTextureColor_noMVP_frag);
             break;
-        case kShaderType_PositionTextureColorAlphaTest:
-            p->initWithByteArrays(ccPositionTextureColor_vert, ccPositionTextureColorAlphaTest_frag);
-            break;
-        case kShaderType_PositionTextureColorAlphaTestNoMV:
-            p->initWithByteArrays(ccPositionTextureColor_noMVP_vert, ccPositionTextureColorAlphaTest_frag);
-            break;
         case kShaderType_PositionColor:
             p->initWithByteArrays(ccPositionColor_vert ,ccPositionColor_frag);
-            break;
-        case kShaderType_PositionColorTextureAsPointsize:
-            p->initWithByteArrays(ccPositionColorTextureAsPointsize_vert ,ccPositionColor_frag);
             break;
         case kShaderType_PositionColor_noMVP:
             p->initWithByteArrays(ccPositionTextureColor_noMVP_vert ,ccPositionColor_frag);
@@ -284,13 +224,6 @@ void GLProgramCache::loadDefaultGLProgram(GLProgram *p, int type)
         case kShaderType_Position_uColor:
             p->initWithByteArrays(ccPosition_uColor_vert, ccPosition_uColor_frag);
             p->bindAttribLocation("aVertex", GLProgram::VERTEX_ATTRIB_POSITION);
-            break;
-        case kShaderType_PositionLengthTexureColor:
-            p->initWithByteArrays(ccPositionColorLengthTexture_vert, ccPositionColorLengthTexture_frag);
-            break;
-        case kShaderType_UIGrayScale:
-            p->initWithByteArrays(ccPositionTextureColor_noMVP_vert,
-                                  ccPositionTexture_GrayScale_frag);
             break;
         default:
             CCLOG("cocos2d: %s:%d, error shader type", __FUNCTION__, __LINE__);
