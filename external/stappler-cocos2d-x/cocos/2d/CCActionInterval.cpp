@@ -29,7 +29,6 @@ THE SOFTWARE.
 
 #include <stdarg.h>
 
-#include "2d/CCSprite.h"
 #include "2d/CCNode.h"
 #include "2d/CCActionInstant.h"
 #include "base/CCDirector.h"

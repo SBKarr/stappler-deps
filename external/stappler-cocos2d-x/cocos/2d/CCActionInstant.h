@@ -52,7 +52,7 @@ public:
         CC_ASSERT(0);
         return nullptr;
     }
-    
+
     virtual ActionInstant * reverse() const override
     {
         CC_ASSERT(0);
@@ -182,7 +182,7 @@ public:
     virtual void update(float time) override;
     virtual RemoveSelf* clone() const override;
     virtual RemoveSelf* reverse() const override;
-    
+
 CC_CONSTRUCTOR_ACCESS:
     RemoveSelf() : _isNeedCleanUp(true){}
     virtual ~RemoveSelf(){}
@@ -195,82 +195,6 @@ protected:
 
 private:
     CC_DISALLOW_COPY_AND_ASSIGN(RemoveSelf);
-};
-
-/** @class FlipX
-* @brief Flips the sprite horizontally.
-* @since v0.99.0
-*/
-class CC_DLL FlipX : public ActionInstant
-{
-public:
-    /** Create the action.
-     *
-     * @param x Flips the sprite horizontally if true.
-     * @return  An autoreleased FlipX object.
-     */
-    static FlipX * create(bool x);
-
-    //
-    // Overrides
-    //
-    /**
-     * @param time In seconds.
-     */
-    virtual void update(float time) override;
-    virtual FlipX* reverse() const override;
-    virtual FlipX* clone() const override;
-    
-CC_CONSTRUCTOR_ACCESS:
-    FlipX() :_flipX(false) {}
-    virtual ~FlipX() {}
-
-    /** init the action */
-    bool initWithFlipX(bool x);
-
-protected:
-    bool    _flipX;
-
-private:
-    CC_DISALLOW_COPY_AND_ASSIGN(FlipX);
-};
-
-/** @class FlipY
-* @brief Flips the sprite vertically.
-* @since v0.99.0
-*/
-class CC_DLL FlipY : public ActionInstant
-{
-public:
-    /** Create the action.
-     *
-     * @param y Flips the sprite vertically if true.
-     * @return An autoreleased FlipY object.
-     */
-    static FlipY * create(bool y);
-
-    //
-    // Overrides
-    //
-    /**
-     * @param time In seconds.
-     */
-    virtual void update(float time) override;
-    virtual FlipY* reverse() const override;
-    virtual FlipY* clone() const override;
-    
-CC_CONSTRUCTOR_ACCESS:
-    FlipY() :_flipY(false) {}
-    virtual ~FlipY() {}
-
-    /** init the action */
-    bool initWithFlipY(bool y);
-
-protected:
-    bool    _flipY;
-
-private:
-    CC_DISALLOW_COPY_AND_ASSIGN(FlipY);
 };
 
 /** @class Place
@@ -296,7 +220,7 @@ public:
     virtual void update(float time) override;
     virtual Place* reverse() const override;
     virtual Place* clone() const override;
-    
+
 CC_CONSTRUCTOR_ACCESS:
     Place(){}
     virtual ~Place(){}
@@ -374,7 +298,7 @@ public:
     virtual void update(float time) override;
     virtual CallFunc* reverse() const override;
     virtual CallFunc* clone() const override;
-    
+
 CC_CONSTRUCTOR_ACCESS:
     CallFunc()
     : _selectorTarget(nullptr)
@@ -389,7 +313,7 @@ CC_CONSTRUCTOR_ACCESS:
      @deprecated Use the std::function API instead.
      */
     CC_DEPRECATED_ATTRIBUTE bool initWithTarget(Ref* target);
-    
+
     /** initializes the action with the std::function<void()>
      * @lua NA
      */
@@ -404,7 +328,7 @@ protected:
         SEL_CallFunc    _callFunc;
         SEL_CallFuncN    _callFuncN;
     };
-    
+
     /** function that will be called */
     std::function<void()> _function;
 
@@ -439,16 +363,16 @@ public:
     //
     virtual CallFuncN* clone() const override;
     virtual void execute() override;
-    
+
 CC_CONSTRUCTOR_ACCESS:
     CallFuncN():_functionN(nullptr){}
     virtual ~CallFuncN(){}
 
     /** initializes the action with the std::function<void(Node*)> */
     bool initWithFunction(const std::function<void(Node*)>& func);
-    
+
     /** initializes the action with the callback
-     
+
      typedef void (Ref::*SEL_CallFuncN)(Node*);
      @deprecated Use the std::function API instead.
      */

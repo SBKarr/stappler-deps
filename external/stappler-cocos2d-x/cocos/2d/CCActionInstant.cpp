@@ -3,7 +3,7 @@
  Copyright (c) 2010-2012 cocos2d-x.org
  Copyright (c) 2011      Zynga Inc.
  Copyright (c) 2013-2014 Chukong Technologies Inc.
- 
+
  http://www.cocos2d-x.org
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,7 +27,6 @@
 
 #include "2d/CCActionInstant.h"
 #include "2d/CCNode.h"
-#include "2d/CCSprite.h"
 
 #if defined(__GNUC__) && ((__GNUC__ >= 4) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1)))
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
@@ -59,7 +58,7 @@ void ActionInstant::update(float time) {
 // Show
 //
 
-Show* Show::create() 
+Show* Show::create()
 {
     Show* ret = new (std::nothrow) Show();
 
@@ -91,7 +90,7 @@ Show * Show::clone() const
 //
 // Hide
 //
-Hide * Hide::create() 
+Hide * Hide::create()
 {
     Hide *ret = new (std::nothrow) Hide();
 
@@ -135,7 +134,7 @@ ToggleVisibility * ToggleVisibility::create()
     return ret;
 }
 
-void ToggleVisibility::update(float time) 
+void ToggleVisibility::update(float time)
 {
     CC_UNUSED_PARAM(time);
     _target->setVisible(!_target->isVisible());
@@ -157,7 +156,7 @@ ToggleVisibility * ToggleVisibility::clone() const
 //
 // Remove Self
 //
-RemoveSelf * RemoveSelf::create(bool isNeedCleanUp /*= true*/) 
+RemoveSelf * RemoveSelf::create(bool isNeedCleanUp /*= true*/)
 {
     RemoveSelf *ret = new (std::nothrow) RemoveSelf();
 
@@ -188,87 +187,6 @@ RemoveSelf * RemoveSelf::clone() const
     // no copy constructor
     auto a = new (std::nothrow) RemoveSelf();
     a->init(_isNeedCleanUp);
-    a->autorelease();
-    return a;
-}
-
-//
-// FlipX
-//
-
-FlipX *FlipX::create(bool x)
-{
-    FlipX *ret = new (std::nothrow) FlipX();
-
-    if (ret && ret->initWithFlipX(x)) {
-        ret->autorelease();
-        return ret;
-    }
-
-    CC_SAFE_DELETE(ret);
-    return nullptr;
-}
-
-bool FlipX::initWithFlipX(bool x) {
-    _flipX = x;
-    return true;
-}
-
-void FlipX::update(float time) {
-    CC_UNUSED_PARAM(time);
-    static_cast<Sprite*>(_target)->setFlippedX(_flipX);
-}
-
-FlipX* FlipX::reverse() const
-{
-    return FlipX::create(!_flipX);
-}
-
-FlipX * FlipX::clone() const
-{
-    // no copy constructor
-    auto a = new (std::nothrow) FlipX();
-    a->initWithFlipX(_flipX);
-    a->autorelease();
-    return a;
-}
-//
-// FlipY
-//
-
-FlipY * FlipY::create(bool y)
-{
-    FlipY *ret = new (std::nothrow) FlipY();
-
-    if (ret && ret->initWithFlipY(y)) {
-        ret->autorelease();
-        return ret;
-    }
-
-    CC_SAFE_DELETE(ret);
-    return nullptr;
-}
-
-bool FlipY::initWithFlipY(bool y) {
-    _flipY = y;
-    return true;
-}
-
-void FlipY::update(float time) {
-    CC_UNUSED_PARAM(time);
-    static_cast<Sprite*>(_target)->setFlippedY(_flipY);
-}
-
-FlipY* FlipY::reverse() const
-{
-    return FlipY::create(!_flipY);
-}
-
-FlipY * FlipY::clone() const
-{
-    // no copy constructor
-    auto a = new (std::nothrow) FlipY();
-    a->initWithFlipY(_flipY);
     a->autorelease();
     return a;
 }
@@ -332,7 +250,7 @@ CallFunc * CallFunc::create(const std::function<void()> &func)
     return nullptr;
 }
 
-CallFunc * CallFunc::create(Ref* selectorTarget, SEL_CallFunc selector) 
+CallFunc * CallFunc::create(Ref* selectorTarget, SEL_CallFunc selector)
 {
     CallFunc *ret = new (std::nothrow) CallFunc();
 

@@ -40,7 +40,6 @@ THE SOFTWARE.
 #include "renderer/ccGLStateCache.h"
 #include "renderer/CCRenderer.h"
 #include "renderer/CCRenderState.h"
-#include "2d/CCCamera.h"
 #include "base/CCScheduler.h"
 #include "base/ccMacros.h"
 #include "base/CCEventDispatcher.h"

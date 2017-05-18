@@ -73,14 +73,12 @@ THE SOFTWARE.
 #include "base/CCEventListenerFocus.h"
 
 // math
-#include "math/CCAffineTransform.h"
 #include "math/CCGeometry.h"
 #include "math/Vec2.h"
 #include "math/Vec3.h"
 #include "math/Vec4.h"
 #include "math/Mat4.h"
 #include "math/Quaternion.h"
-#include "math/CCVertex.h"
 
 // actions
 #include "2d/CCAction.h"
@@ -93,14 +91,6 @@ THE SOFTWARE.
 // 2d nodes
 #include "2d/CCNode.h"
 #include "2d/CCScene.h"
-#include "2d/CCRenderTexture.h"
-
-// 2d utils
-#include "2d/CCGrabber.h"
-#include "2d/CCGrid.h"
-
-#include "2d/CCCamera.h"
-#include "2d/CCLight.h"
 
 // include
 #include "base/CCProtocols.h"
@@ -125,7 +115,6 @@ THE SOFTWARE.
 #include "platform/CCCommon.h"
 #include "platform/CCFileUtils.h"
 #include "platform/CCImage.h"
-#include "platform/CCThread.h"
 #include "platform/CCPlatformConfig.h"
 #include "platform/CCPlatformMacros.h"
 
@@ -186,9 +175,6 @@ THE SOFTWARE.
 	#include "platform/winrt/CCPrecompiledShaders.h"
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_WP8
 
-
-// sprite_nodes
-#include "2d/CCSprite.h"
 
 // textures
 #include "renderer/CCTextureAtlas.h"

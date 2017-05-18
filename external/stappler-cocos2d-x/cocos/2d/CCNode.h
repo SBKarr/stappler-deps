@@ -32,7 +32,6 @@
 #include "base/ccMacros.h"
 #include "base/CCVector.h"
 #include "base/CCProtocols.h"
-#include "math/CCAffineTransform.h"
 #include "math/CCMath.h"
 
 NS_CC_BEGIN
@@ -1457,7 +1456,6 @@ public:
      * @return The transformation matrix.
      */
     virtual const Mat4& getNodeToParentTransform() const;
-    virtual AffineTransform getNodeToParentAffineTransform() const;
 
     /**
      * Sets the transformation matrix manually.
@@ -1466,9 +1464,6 @@ public:
      */
     virtual void setNodeToParentTransform(const Mat4& transform);
 
-    /** @deprecated use getNodeToParentTransform() instead */
-    CC_DEPRECATED_ATTRIBUTE inline virtual AffineTransform nodeToParentTransform() const { return getNodeToParentAffineTransform(); }
-
     /**
      * Returns the matrix that transform parent's space coordinates to the node's (local) space coordinates.
      * The matrix is in Pixels.
@@ -1476,10 +1471,6 @@ public:
      * @return The transformation matrix.
      */
     virtual const Mat4& getParentToNodeTransform() const;
-    virtual AffineTransform getParentToNodeAffineTransform() const;
-
-    /** @deprecated Use getParentToNodeTransform() instead */
-    CC_DEPRECATED_ATTRIBUTE inline virtual AffineTransform parentToNodeTransform() const { return getParentToNodeAffineTransform(); }
 
     /**
      * Returns the world affine transform matrix. The matrix is in Pixels.
@@ -1487,10 +1478,6 @@ public:
      * @return transformation matrix, in pixels.
      */
     virtual Mat4 getNodeToWorldTransform() const;
-    virtual AffineTransform getNodeToWorldAffineTransform() const;
-
-    /** @deprecated Use getNodeToWorldTransform() instead */
-    CC_DEPRECATED_ATTRIBUTE inline virtual AffineTransform nodeToWorldTransform() const { return getNodeToWorldAffineTransform(); }
 
     /**
      * Returns the inverse world affine transform matrix. The matrix is in Pixels.
@@ -1498,11 +1485,6 @@ public:
      * @return The transformation matrix.
      */
     virtual Mat4 getWorldToNodeTransform() const;
-    virtual AffineTransform getWorldToNodeAffineTransform() const;
-
-
-    /** @deprecated Use getWorldToNodeTransform() instead */
-    CC_DEPRECATED_ATTRIBUTE inline virtual AffineTransform worldToNodeTransform() const { return getWorldToNodeAffineTransform(); }
 
     /// @} end of Transformations
 
@@ -1560,7 +1542,7 @@ public:
      */
     Vec2 convertTouchToNodeSpaceAR(Touch * touch) const;
 
-	/**
+    /**
      *  Sets an additional transform matrix to the node.
      *
      *  In order to remove it, call it again with the argument `nullptr`.
@@ -1571,7 +1553,6 @@ public:
      * @param additionalTransform An additional transform matrix.
      */
     void setAdditionalTransform(Mat4* additionalTransform);
-    void setAdditionalTransform(const AffineTransform& additionalTransform);
 
     /// @} end of Coordinate Converters
 
@@ -1678,7 +1659,7 @@ protected:
     bool doEnumerateRecursive(const Node* node, const std::string &name, std::function<bool (Node *)> callback) const;
 
     //check whether this camera mask is visible by the current visiting camera
-    bool isVisitableByVisitingCamera() const;
+    virtual bool isVisitableByVisitingCamera() const;
 
     // update quaternion from Rotation3D
     void updateRotationQuat();

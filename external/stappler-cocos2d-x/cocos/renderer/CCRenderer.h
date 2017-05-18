@@ -154,6 +154,7 @@ public:
 
 protected:
     std::stack<int> _commandGroupStack;
+    std::function<bool(const Mat4& transform, const Size& size)> _checkVisibility = nullptr;
 
     std::vector<RenderQueue> *_renderGroups;
     GroupCommandManager* _groupCommandManager;
@@ -164,11 +165,11 @@ protected:
 class RendererView : public Renderer {
 public:
     /**The max number of vertices in a vertex buffer object.*/
-    static const int VBO_SIZE = 64;
+    static const int VBO_SIZE = 16;
     /**The max number of indices in a index buffer.*/
     static const int INDEX_VBO_SIZE = VBO_SIZE * 6 / 4;
     /**The rendercommands which can be batched will be saved into a list, this is the reversed size of this list.*/
-    static const int BATCH_QUADCOMMAND_RESEVER_SIZE = 64;
+    static const int BATCH_QUADCOMMAND_RESEVER_SIZE = 16;
 
     /**Constructor.*/
     RendererView();

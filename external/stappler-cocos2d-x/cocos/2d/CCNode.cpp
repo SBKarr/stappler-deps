@@ -37,14 +37,12 @@ THE SOFTWARE.
 #include "base/CCDirector.h"
 #include "base/CCScheduler.h"
 #include "base/CCEventDispatcher.h"
-#include "2d/CCCamera.h"
 #include "2d/CCActionManager.h"
 #include "2d/CCScene.h"
 #include "2d/CCComponent.h"
 #include "2d/CCComponentContainer.h"
 #include "renderer/CCGLProgram.h"
 #include "renderer/CCGLProgramState.h"
-#include "math/TransformUtils.h"
 #include "base/CCTouch.h"
 
 
@@ -746,7 +744,7 @@ Scene* Node::getScene() const
 Rect Node::getBoundingBox() const
 {
     Rect rect(0, 0, _contentSize.width, _contentSize.height);
-    return RectApplyAffineTransform(rect, getNodeToParentAffineTransform());
+    return RectApplyTransform(rect, getNodeToParentTransform());
 }
 
 // MARK: Children logic
@@ -1172,9 +1170,7 @@ uint32_t Node::processParentFlags(const Mat4& parentTransform, uint32_t parentFl
 
 bool Node::isVisitableByVisitingCamera() const
 {
-    auto camera = Camera::getVisitingCamera();
-    bool visibleByCamera = camera ? ((unsigned short)camera->getCameraFlag() & _cameraMask) != 0 : true;
-    return visibleByCamera;
+    return true;
 }
 
 void Node::visit(Renderer* renderer, const Mat4 &parentTransform, uint32_t parentFlags, std::vector<int> &zPath)
@@ -1578,14 +1574,6 @@ void Node::update(float fDelta)
 
 // MARK: coordinates
 
-AffineTransform Node::getNodeToParentAffineTransform() const
-{
-    AffineTransform ret;
-    GLToCGAffine(getNodeToParentTransform().m, &ret);
-
-    return ret;
-}
-
 const Mat4& Node::getNodeToParentTransform() const
 {
     if (_transformDirty)
@@ -1697,13 +1685,6 @@ void Node::setNodeToParentTransform(const Mat4& transform)
     _transformUpdated = true;
 }
 
-void Node::setAdditionalTransform(const AffineTransform& additionalTransform)
-{
-    Mat4 tmp;
-    CGAffineToGL(additionalTransform, tmp.m);
-    setAdditionalTransform(&tmp);
-}
-
 void Node::setAdditionalTransform(Mat4* additionalTransform)
 {
     if (additionalTransform == nullptr)
@@ -1718,15 +1699,6 @@ void Node::setAdditionalTransform(Mat4* additionalTransform)
     _transformUpdated = _transformDirty = _inverseDirty = true;
 }
 
-
-AffineTransform Node::getParentToNodeAffineTransform() const
-{
-    AffineTransform ret;
-
-    GLToCGAffine(getParentToNodeTransform().m,&ret);
-    return ret;
-}
-
 const Mat4& Node::getParentToNodeTransform() const
 {
     if ( _inverseDirty )
@@ -1736,17 +1708,6 @@ const Mat4& Node::getParentToNodeTransform() const
     }
 
     return _inverse;
-}
-
-
-AffineTransform Node::getNodeToWorldAffineTransform() const
-{
-    AffineTransform t(this->getNodeToParentAffineTransform());
-
-    for (Node *p = _parent; p != nullptr; p = p->getParent())
-        t = AffineTransformConcat(t, p->getNodeToParentAffineTransform());
-
-    return t;
 }
 
 Mat4 Node::getNodeToWorldTransform() const
@@ -1759,11 +1720,6 @@ Mat4 Node::getNodeToWorldTransform() const
     }
 
     return t;
-}
-
-AffineTransform Node::getWorldToNodeAffineTransform() const
-{
-    return AffineTransformInvert(this->getNodeToWorldAffineTransform());
 }
 
 Mat4 Node::getWorldToNodeTransform() const

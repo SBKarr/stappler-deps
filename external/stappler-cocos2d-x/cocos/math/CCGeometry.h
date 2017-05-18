@@ -42,6 +42,14 @@ NS_CC_BEGIN
 using Size = stappler::layout::Size;
 using Rect = stappler::layout::Rect;
 
+inline Rect RectApplyTransform(const Rect& rect, const Mat4& transform) {
+	return stappler::layout::TransformRect(rect, transform);
+}
+
+inline Vec2 PointApplyTransform(const Vec2& point, const Mat4& transform) {
+	return stappler::layout::TransformPoint(point, transform);
+}
+
 NS_CC_END
 
 // end of base group

@@ -39,7 +39,6 @@
 #include "base/CCEventDispatcher.h"
 #include "base/CCEventListenerCustom.h"
 #include "base/CCEventType.h"
-#include "2d/CCCamera.h"
 #include "2d/CCScene.h"
 
 NS_CC_BEGIN
@@ -244,37 +243,11 @@ void Renderer::popGroup()
 // helpers
 bool Renderer::checkVisibility(const Mat4 &transform, const Size &size)
 {
-    auto scene = Director::getInstance()->getRunningScene();
-    // only cull the default camera. The culling algorithm is valid for default camera.
-    if (scene && scene->_defaultCamera != Camera::getVisitingCamera())
-        return true;
-
-    // half size of the screen
-    Size screen_half = Director::getInstance()->getWinSize();
-    screen_half.width /= 2;
-    screen_half.height /= 2;
-
-    float hSizeX = size.width/2;
-    float hSizeY = size.height/2;
-
-    Vec4 v4world, v4local;
-    v4local.set(hSizeX, hSizeY, 0, 1);
-    transform.transformVector(v4local, &v4world);
-
-    // center of screen is (0,0)
-    v4world.x -= screen_half.width;
-    v4world.y -= screen_half.height;
-
-    // convert content size to world coordinates
-    float wshw = std::max(fabsf(hSizeX * transform.m[0] + hSizeY * transform.m[4]), fabsf(hSizeX * transform.m[0] - hSizeY * transform.m[4]));
-    float wshh = std::max(fabsf(hSizeX * transform.m[1] + hSizeY * transform.m[5]), fabsf(hSizeX * transform.m[1] - hSizeY * transform.m[5]));
-
-    // compare if it in the positive quadrant of the screen
-    float tmpx = (fabsf(v4world.x)-wshw);
-    float tmpy = (fabsf(v4world.y)-wshh);
-    bool ret = (tmpx < screen_half.width && tmpy < screen_half.height);
-
-    return ret;
+	if (_checkVisibility) {
+		return _checkVisibility(transform, size);
+	} else {
+		return true;
+	}
 }
 
 //
@@ -286,6 +259,8 @@ RendererView::RendererView()
 ,_filledIndex(0)
 ,_numberQuads(0)
 ,_glViewAssigned(false)
+,_drawnBatches(0)
+,_drawnVertices(0)
 ,_isDepthTestFor2D(false)
 #if CC_ENABLE_CACHE_TEXTURE_DATA
 ,_cacheTextureListener(nullptr)

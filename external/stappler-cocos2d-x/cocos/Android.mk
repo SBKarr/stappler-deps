@@ -16,7 +16,6 @@ LOCAL_SRC_FILES := \
 		$(LOCAL_PATH)/platform/CCGLView.cpp \
 		$(LOCAL_PATH)/platform/CCFileUtils.cpp \
 		$(LOCAL_PATH)/platform/CCSAXParser.cpp \
-		$(LOCAL_PATH)/platform/CCThread.cpp \
 		$(LOCAL_PATH)/platform/CCImage.cpp \
 		$(LOCAL_PATH)/../external/tinyxml2/tinyxml2.cpp \
 		$(LOCAL_PATH)/../external/unzip/ioapi_mem.cpp \

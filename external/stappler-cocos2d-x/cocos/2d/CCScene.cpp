@@ -27,55 +27,20 @@ THE SOFTWARE.
 
 #include "2d/CCScene.h"
 #include "base/CCDirector.h"
-#include "2d/CCCamera.h"
 #include "base/CCEventDispatcher.h"
 #include "base/CCEventListenerCustom.h"
 #include "renderer/CCRenderer.h"
 
-#if CC_USE_PHYSICS
-#include "physics/CCPhysicsWorld.h"
-#endif
-
-#if CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION
-#include "physics3d/CCPhysics3DWorld.h"
-#include "physics3d/CCPhysics3DComponent.h"
-#endif
-
 NS_CC_BEGIN
 
 Scene::Scene()
-#if CC_USE_PHYSICS
-: _physicsWorld(nullptr)
-#endif
 {
-#if CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION
-    _physics3DWorld = nullptr;
-    _physics3dDebugCamera = nullptr;
-#endif
     _ignoreAnchorPointForPosition = true;
     setAnchorPoint(Vec2(0.5f, 0.5f));
-
-    _cameraOrderDirty = true;
-
-    //create default camera
-    _defaultCamera = Camera::create();
-    addChild(_defaultCamera);
-
-    _event = Director::getInstance()->getEventDispatcher()->addCustomEventListener(Director::EVENT_PROJECTION_CHANGED, std::bind(&Scene::onProjectionChanged, this, std::placeholders::_1));
-    _event->retain();
 }
 
 Scene::~Scene()
 {
-#if CC_USE_PHYSICS
-    CC_SAFE_DELETE(_physicsWorld);
-#endif
-#if CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION
-    CC_SAFE_RELEASE(_physics3DWorld);
-    CC_SAFE_RELEASE(_physics3dDebugCamera);
-#endif
-    Director::getInstance()->getEventDispatcher()->removeEventListener(_event);
-    CC_SAFE_RELEASE(_event);
 }
 
 bool Scene::init()
@@ -120,194 +85,21 @@ Scene* Scene::createWithSize(const Size& size)
     }
 }
 
-void Scene::onProjectionChanged(EventCustom* event)
-{
-    if (_defaultCamera)
-    {
-        _defaultCamera->initDefault();
-    }
-}
-
-static bool camera_cmp(const Camera* a, const Camera* b)
-{
-    return a->getDepth() < b->getDepth();
-}
-
 void Scene::render(RendererView * renderer)
 {
     auto director = Director::getInstance();
     const auto& transform = getNodeToParentTransform();
-    if (_cameraOrderDirty)
-    {
-        stable_sort(_cameras.begin(), _cameras.end(), camera_cmp);
-        _cameraOrderDirty = false;
-    }
 
-    Camera* defaultCamera = nullptr;
-    for (const auto& camera : _cameras)
-    {
-        if (!camera->isVisible())
-            continue;
+	//director->pushMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
+	//director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION, Camera::_visitingCamera->getViewProjectionMatrix());
 
-        Camera::_visitingCamera = camera;
-        if (Camera::_visitingCamera->getCameraFlag() == CameraFlag::DEFAULT)
-        {
-            defaultCamera = Camera::_visitingCamera;
-        }
+	std::vector<int> zPath;
+	//visit the scene
+	visit(renderer, transform, 0, zPath);
 
-        director->pushMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
-        director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION, Camera::_visitingCamera->getViewProjectionMatrix());
+	renderer->render();
 
-    	std::vector<int> zPath;
-        //visit the scene
-        visit(renderer, transform, 0, zPath);
-
-        renderer->render();
-
-        director->popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
-    }
-
-#if CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION
-    if (_physics3DWorld && _physics3DWorld->isDebugDrawEnabled())
-    {
-        director->pushMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
-        director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION, _physics3dDebugCamera != nullptr ? _physics3dDebugCamera->getViewProjectionMatrix() : defaultCamera->getViewProjectionMatrix());
-        _physics3DWorld->debugDraw(renderer);
-        renderer->render();
-        director->popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
-    }
-#endif
-
-    Camera::_visitingCamera = nullptr;
+	//director->popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
 }
-
-void Scene::removeAllChildren()
-{
-    if (_defaultCamera)
-        _defaultCamera->retain();
-
-    Node::removeAllChildren();
-
-    if (_defaultCamera)
-    {
-        addChild(_defaultCamera);
-        _defaultCamera->release();
-    }
-}
-
-#if CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION
-void Scene::setPhysics3DDebugCamera(Camera* camera)
-{
-    CC_SAFE_RETAIN(camera);
-    CC_SAFE_RELEASE(_physics3dDebugCamera);
-    _physics3dDebugCamera = camera;
-}
-#endif
-
-#if (CC_USE_PHYSICS || (CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION))
-void Scene::addChild(Node* child, int zOrder, int tag)
-{
-    Node::addChild(child, zOrder, tag);
-    addChildToPhysicsWorld(child);
-}
-
-void Scene::addChild(Node* child, int zOrder, const std::string &name)
-{
-    Node::addChild(child, zOrder, name);
-    addChildToPhysicsWorld(child);
-}
-
-Scene* Scene::createWithPhysics()
-{
-    Scene *ret = new (std::nothrow) Scene();
-    if (ret && ret->initWithPhysics())
-    {
-        ret->autorelease();
-        return ret;
-    }
-    else
-    {
-        CC_SAFE_DELETE(ret);
-        return nullptr;
-    }
-}
-
-bool Scene::initWithPhysics()
-{
-    bool ret = false;
-    do
-    {
-        Director * director;
-        CC_BREAK_IF( ! (director = Director::getInstance()) );
-
-        this->setContentSize(director->getWinSize());
-#if CC_USE_PHYSICS
-        CC_BREAK_IF(! (_physicsWorld = PhysicsWorld::construct(*this)));
-#endif
-
-#if CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION
-        Physics3DWorldDes info;
-        //TODO: FIX ME
-        //info.isDebugDrawEnabled = true;
-        CC_BREAK_IF(! (_physics3DWorld = Physics3DWorld::create(&info)));
-        _physics3DWorld->retain();
-#endif
-
-        // success
-        ret = true;
-    } while (0);
-    return ret;
-}
-
-void Scene::addChildToPhysicsWorld(Node* child)
-{
-#if CC_USE_PHYSICS
-    if (_physicsWorld)
-    {
-        std::function<void(Node*)> addToPhysicsWorldFunc = nullptr;
-        addToPhysicsWorldFunc = [this, &addToPhysicsWorldFunc](Node* node) -> void
-        {
-            node->_physicsWorld = _physicsWorld;
-
-            if (node->getPhysicsBody())
-            {
-                _physicsWorld->addBody(node->getPhysicsBody());
-            }
-
-            auto& children = node->getChildren();
-            for( const auto &n : children) {
-                addToPhysicsWorldFunc(n);
-            }
-        };
-
-        addToPhysicsWorldFunc(child);
-    }
-#endif
-
-#if CC_USE_3D_PHYSICS && CC_ENABLE_BULLET_INTEGRATION
-    if (_physics3DWorld)
-    {
-        std::function<void(Node*)> addToPhysicsWorldFunc = nullptr;
-        addToPhysicsWorldFunc = [this, &addToPhysicsWorldFunc](Node* node) -> void
-        {
-            static std::string comName = Physics3DComponent::getPhysics3DComponentName();
-            auto com = static_cast<Physics3DComponent*>(node->getComponent(comName));
-            if (com)
-            {
-                com->addToPhysicsWorld(_physics3DWorld);
-            }
-
-            auto& children = node->getChildren();
-            for( const auto &n : children) {
-                addToPhysicsWorldFunc(n);
-            }
-        };
-
-        addToPhysicsWorldFunc(child);
-    }
-#endif
-}
-
-#endif
 
 NS_CC_END

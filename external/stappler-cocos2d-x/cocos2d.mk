@@ -12,7 +12,6 @@ COCOS2D_STAPPLER_SRCS_OBJS := \
 	$(COCOS2D_ROOT)/external/unzip/unzip.cpp \
 	$(COCOS2D_ROOT)/cocos/platform/CCGLView.cpp \
 	$(COCOS2D_ROOT)/cocos/platform/CCFileUtils.cpp \
-	$(COCOS2D_ROOT)/cocos/platform/CCThread.cpp \
 	$(COCOS2D_ROOT)/cocos/platform/CCImage.cpp \
 	$(COCOS2D_ROOT)/cocos/cocos2d.cpp \
 	$(COCOS2D_ROOT)/external/xxhash/xxhash.c
