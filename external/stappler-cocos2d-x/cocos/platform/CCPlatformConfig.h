@@ -68,12 +68,6 @@ THE SOFTWARE.
     #define CC_TARGET_PLATFORM         CC_PLATFORM_IOS
 #endif
 
-// android
-#if defined(ANDROID)
-    #undef  CC_TARGET_PLATFORM
-    #define CC_TARGET_PLATFORM         CC_PLATFORM_ANDROID
-#endif
-
 // win32
 #if defined(_WIN32) && defined(_WINDOWS)
     #undef  CC_TARGET_PLATFORM
@@ -96,6 +90,12 @@ THE SOFTWARE.
 #if defined(LINUX) && !defined(__APPLE__)
     #undef  CC_TARGET_PLATFORM
     #define CC_TARGET_PLATFORM         CC_PLATFORM_LINUX
+#endif
+
+// android
+#if defined(ANDROID)
+    #undef  CC_TARGET_PLATFORM
+    #define CC_TARGET_PLATFORM         CC_PLATFORM_ANDROID
 #endif
 
 // marmalade

@@ -128,6 +128,7 @@ void Configuration::gatherGPUInfo()
 	if (vReader == "OpenGL ES 3.") {
 		_supportsEs30Api = true;
 		s_supportedRenderTarget |= toInt(Configuration::RenderTarget::R8) | toInt(Configuration::RenderTarget::RG8);
+		_supportsBlendMinMax = true;
 	}
 
     glGetIntegerv(GL_MAX_TEXTURE_SIZE, &_maxTextureSize);
@@ -148,6 +149,7 @@ void Configuration::gatherGPUInfo()
 
 #ifndef GL_ES_VERSION_2_0
 	_supportsMapBuffer = true;
+	_supportsBlendMinMax = true;
 #endif
 
 	CharReaderBase r(_glExtensions, strlen(_glExtensions));
@@ -168,6 +170,8 @@ void Configuration::gatherGPUInfo()
     		_supportsDiscardFramebuffer = true;
     	} else if (b == "GL_OES_vertex_array_object") {
     		_supportsShareableVAO = true;
+    	} else if (b == "GL_EXT_blend_minmax") {
+    		_supportsBlendMinMax = true;
 #ifdef GL_ES_VERSION_2_0
     	} else if (b == "GL_OES_mapbuffer") {
     		_supportsMapBuffer = true;
@@ -211,6 +215,7 @@ void Configuration::gatherGPUInfo()
 	_data.setBool(_supportsDiscardFramebuffer, "gl.supports_discard_framebuffer");
 	_data.setBool(_supportsShareableVAO, "gl.supports_vertex_array_object");
 	_data.setBool(_supportsMapBuffer, "gl.supports_map_buffer");
+	_data.setBool(_supportsBlendMinMax, "gl.supports_blend_minmax");
 
     CHECK_GL_ERROR_DEBUG();
 }
@@ -307,6 +312,9 @@ bool Configuration::supportsShareableVAO() const
 
 bool Configuration::supportsMapBuffer() const {
 	return _supportsMapBuffer;
+}
+bool Configuration::supportsBlendMinMax() const {
+	return _supportsBlendMinMax;
 }
 bool Configuration::supportsEs30Api() const {
 	return _supportsEs30Api;

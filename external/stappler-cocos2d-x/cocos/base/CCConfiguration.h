@@ -149,6 +149,9 @@ public:
 	/** is device Supports glMapBuffer/glMapBufferOES */
 	bool supportsMapBuffer() const;
 
+	/** GL_EXT_blend_minmax */
+	bool supportsBlendMinMax() const;
+
 	/** is openGL ES 3.0 calls supported */
 	bool supportsEs30Api() const;
 
@@ -228,6 +231,7 @@ protected:
     bool            _supportsDiscardFramebuffer = false;
     bool            _supportsShareableVAO = false;
     bool            _supportsMapBuffer = false;
+    bool            _supportsBlendMinMax = false;
     bool			_supportsEs30Api = false;
     GLint           _maxSamplesAllowed;
     GLint           _maxTextureUnits;
