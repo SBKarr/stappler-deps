@@ -573,9 +573,9 @@ bool Texture2D::init(Texture2D::PixelFormat pixelFormat, int pixelsWide, int pix
         return false;
     }
 
+	_referenceFormat = pixelFormat;
     if (init == RenderTarget) {
     	_renderTarget = true;
-    	_referenceFormat = pixelFormat;
 
     	switch (pixelFormat) {
     	case PixelFormat::RGB565:   // default color-renderable formats
@@ -607,7 +607,13 @@ bool Texture2D::init(Texture2D::PixelFormat pixelFormat, int pixelsWide, int pix
     	case PixelFormat::I8:
     	case PixelFormat::R8:
     		if (!Configuration::isRenderTargetSupported(Configuration::RenderTarget::R8)) {
-        		pixelFormat = PixelFormat::RGBA4444;
+        		if (Configuration::isRenderTargetSupported(Configuration::RenderTarget::RG8)) {
+        			pixelFormat = PixelFormat::RG88;
+        		} else if (Configuration::isRenderTargetSupported(Configuration::RenderTarget::RGBA8)) {
+            		pixelFormat = PixelFormat::RGBA8888;
+        		} else {
+        			pixelFormat = PixelFormat::RGBA4444;
+        		}
     		} else {
     			pixelFormat = PixelFormat::R8;
     		}
@@ -768,7 +774,7 @@ bool Texture2D::initWithDataThreadSafe(const void *data, ssize_t dataLen, Textur
     _contentSize = Size((float)pixelsWide, (float)pixelsHigh);
     _pixelsWide = pixelsWide;
     _pixelsHigh = pixelsHigh;
-    _pixelFormat = pixelFormat;
+    _referenceFormat = _pixelFormat = pixelFormat;
     _maxS = 1;
     _maxT = 1;
 
@@ -913,7 +919,7 @@ bool Texture2D::initWithMipmaps(MipmapInfo* mipmaps, int mipmapsNum, PixelFormat
     _contentSize = Size((float)pixelsWide, (float)pixelsHigh);
     _pixelsWide = pixelsWide;
     _pixelsHigh = pixelsHigh;
-    _pixelFormat = pixelFormat;
+    _referenceFormat = _pixelFormat = pixelFormat;
     _maxS = 1;
     _maxT = 1;
 

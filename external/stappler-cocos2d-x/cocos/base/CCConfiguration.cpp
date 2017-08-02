@@ -125,9 +125,10 @@ void Configuration::gatherGPUInfo()
 	_data.setString(glVersion, "gl.version");
 
 	CharReaderBase vReader(glVersion);
-	if (vReader == "OpenGL ES 3.") {
+	if (vReader.is("OpenGL ES 3.")) {
 		_supportsEs30Api = true;
-		s_supportedRenderTarget |= toInt(Configuration::RenderTarget::R8) | toInt(Configuration::RenderTarget::RG8);
+		s_supportedRenderTarget |= toInt(Configuration::RenderTarget::R8) | toInt(Configuration::RenderTarget::RG8)
+				| toInt(Configuration::RenderTarget::RGBA8) | toInt(Configuration::RenderTarget::RGB8);
 		_supportsBlendMinMax = true;
 	}
 

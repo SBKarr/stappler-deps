@@ -27,7 +27,6 @@ THE SOFTWARE.
 #define __SUPPORT_ZIPUTILS_H__
 /// @cond DO_NOT_SHOW
 
-#include <string>
 #include "platform/CCPlatformConfig.h"
 #include "platform/CCPlatformMacros.h"
 #include "platform/CCPlatformDefine.h"
@@ -70,7 +69,7 @@ typedef struct unz_file_info_s unz_file_info;
     class CC_DLL ZipUtils
     {
     public:
-        /** 
+        /**
          * Inflates either zlib or gzip deflated memory. The inflated memory is expected to be freed by the caller.
          *
          * It will allocate 256k for the destination buffer. If it is not enough it will multiply the previous buffer size per 2, until there is enough memory.
@@ -81,7 +80,7 @@ typedef struct unz_file_info_s unz_file_info;
         CC_DEPRECATED_ATTRIBUTE static ssize_t ccInflateMemory(unsigned char *in, ssize_t inLength, unsigned char **out) { return inflateMemory(in, inLength, out); }
         static ssize_t inflateMemory(unsigned char *in, ssize_t inLength, unsigned char **out);
 
-        /** 
+        /**
         * Inflates either zlib or gzip deflated memory. The inflated memory is expected to be freed by the caller.
         *
         * @param outLenghtHint It is assumed to be the needed room to allocate the inflated buffer.
@@ -92,7 +91,7 @@ typedef struct unz_file_info_s unz_file_info;
         CC_DEPRECATED_ATTRIBUTE static ssize_t ccInflateMemoryWithHint(unsigned char *in, ssize_t inLength, unsigned char **out, ssize_t outLengthHint) { return inflateMemoryWithHint(in, inLength, out, outLengthHint); }
         static ssize_t inflateMemoryWithHint(unsigned char *in, ssize_t inLength, unsigned char **out, ssize_t outLengthHint);
 
-        /** 
+        /**
          * Inflates a GZip file into memory.
          *
          * @return The length of the deflated buffer.
@@ -100,8 +99,8 @@ typedef struct unz_file_info_s unz_file_info;
          */
         CC_DEPRECATED_ATTRIBUTE static int ccInflateGZipFile(const char *filename, unsigned char **out) { return inflateGZipFile(filename, out); }
         static int inflateGZipFile(const char *filename, unsigned char **out);
-        
-        /** 
+
+        /**
          * Test a file is a GZip format file or not.
          *
          * @return True is a GZip format file. false is not.
@@ -110,7 +109,7 @@ typedef struct unz_file_info_s unz_file_info;
         CC_DEPRECATED_ATTRIBUTE static bool ccIsGZipFile(const char *filename) { return isGZipFile(filename); }
         static bool isGZipFile(const char *filename);
 
-        /** 
+        /**
          * Test the buffer is GZip format or not.
          *
          * @return True is GZip format. false is not.
@@ -119,7 +118,7 @@ typedef struct unz_file_info_s unz_file_info;
         CC_DEPRECATED_ATTRIBUTE static bool ccIsGZipBuffer(const unsigned char *buffer, ssize_t len) { return isGZipBuffer(buffer, len); }
         static bool isGZipBuffer(const unsigned char *buffer, ssize_t len);
 
-        /** 
+        /**
          * Inflates a CCZ file into memory.
          *
          * @return The length of the deflated buffer.
@@ -128,7 +127,7 @@ typedef struct unz_file_info_s unz_file_info;
         CC_DEPRECATED_ATTRIBUTE static int ccInflateCCZFile(const char *filename, unsigned char **out) { return inflateCCZFile(filename, out); }
         static int inflateCCZFile(const char *filename, unsigned char **out);
 
-        /** 
+        /**
          * Inflates a buffer with CCZ format into memory.
          *
          * @return The length of the deflated buffer.
@@ -136,8 +135,8 @@ typedef struct unz_file_info_s unz_file_info;
          */
         CC_DEPRECATED_ATTRIBUTE static int ccInflateCCZBuffer(const unsigned char *buffer, ssize_t len, unsigned char **out) { return inflateCCZBuffer(buffer, len, out); }
         static int inflateCCZBuffer(const unsigned char *buffer, ssize_t len, unsigned char **out);
-        
-        /** 
+
+        /**
          * Test a file is a CCZ format file or not.
          *
          * @return True is a CCZ format file. false is not.
@@ -146,7 +145,7 @@ typedef struct unz_file_info_s unz_file_info;
         CC_DEPRECATED_ATTRIBUTE static bool ccIsCCZFile(const char *filename) { return isCCZFile(filename); }
         static bool isCCZFile(const char *filename);
 
-        /** 
+        /**
          * Test the buffer is CCZ format or not.
          *
          * @return True is CCZ format. false is not.
@@ -155,7 +154,7 @@ typedef struct unz_file_info_s unz_file_info;
         CC_DEPRECATED_ATTRIBUTE static bool ccIsCCZBuffer(const unsigned char *buffer, ssize_t len) { return isCCZBuffer(buffer, len); }
         static bool isCCZBuffer(const unsigned char *buffer, ssize_t len);
 
-        /** 
+        /**
          * Sets the pvr.ccz encryption key parts separately for added security.
          *
          * Example: If the key used to encrypt the pvr.ccz file is
@@ -170,7 +169,7 @@ typedef struct unz_file_info_s unz_file_info;
          * Splitting the key into 4 parts and calling the function from 4 different source
          * files increases the difficulty to reverse engineer the encryption key.
          * Be aware that encrpytion is *never* 100% secure and the key code
-         * can be cracked by knowledgable persons. 
+         * can be cracked by knowledgable persons.
          *
          * IMPORTANT: Be sure to call setPvrEncryptionKey or
          * setPvrEncryptionKeyPart with all of the key parts *before* loading
@@ -182,8 +181,8 @@ typedef struct unz_file_info_s unz_file_info;
          */
         CC_DEPRECATED_ATTRIBUTE static void ccSetPvrEncryptionKeyPart(int index, unsigned int value) { setPvrEncryptionKeyPart(index, value); }
         static void setPvrEncryptionKeyPart(int index, unsigned int value);
-        
-        /** 
+
+        /**
          * Sets the pvr.ccz encryption key.
          *
          * Example: If the key used to encrypt the pvr.ccz file is
@@ -278,16 +277,16 @@ typedef struct unz_file_info_s unz_file_info;
 
         std::string getFirstFilename();
         std::string getNextFilename();
-        
+
         static ZipFile *createWithBuffer(const void* buffer, unsigned long size);
-        
+
     private:
         /* Only used internal for createWithBuffer() */
         ZipFile();
-        
+
         bool initWithBuffer(const void *buffer, unsigned long size);
         int getCurrentFileInfo(std::string *filename, unz_file_info *info);
-        
+
         /** Internal data like zip file pointer / file list array and so on */
         ZipFilePrivate *_data;
     };

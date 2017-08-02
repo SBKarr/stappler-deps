@@ -87,19 +87,12 @@ Scene* Scene::createWithSize(const Size& size)
 
 void Scene::render(RendererView * renderer)
 {
-    auto director = Director::getInstance();
     const auto& transform = getNodeToParentTransform();
 
-	//director->pushMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
-	//director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION, Camera::_visitingCamera->getViewProjectionMatrix());
-
 	std::vector<int> zPath;
-	//visit the scene
 	visit(renderer, transform, 0, zPath);
 
 	renderer->render();
-
-	//director->popMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
 }
 
 NS_CC_END
