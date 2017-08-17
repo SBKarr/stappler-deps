@@ -2,4 +2,4 @@ android/toolchains
 src
 *.la
 *.pc
-
+.DS_Store

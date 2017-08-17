@@ -40,14 +40,7 @@ NS_CC_BEGIN
 // ios no MessageBox, use log instead
 void MessageBox(const char * msg, const char * title)
 {
-    NSString * tmpTitle = (title) ? [NSString stringWithUTF8String : title] : nil;
-    NSString * tmpMsg = (msg) ? [NSString stringWithUTF8String : msg] : nil;
-    UIAlertView * messageBox = [[UIAlertView alloc] initWithTitle: tmpTitle
-                                                          message: tmpMsg
-                                                         delegate: nil
-                                                cancelButtonTitle: @"OK"
-                                                otherButtonTitles: nil];
-    [messageBox show];
+    stappler::log::text(title, msg);
 }
 
 void LuaLog(const char * format)
