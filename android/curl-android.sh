@@ -42,7 +42,6 @@ NDKLDFLAGS=$4
 	--disable-warnings \
 	--disable-curldebug \
 	--enable-symbol-hiding \
-	--disable-rt \
 	--disable-largefile \
 	--enable-http \
 	--enable-ftp \
@@ -69,6 +68,7 @@ NDKLDFLAGS=$4
 	--enable-cookies \
 	--enable-shared=no \
 	--enable-static=yes \
+	--enable-pthreads \
 	--includedir=`pwd`/../$1/include \
 	--libdir=`pwd`/../$1/lib \
 	--prefix=`pwd` \

@@ -20,11 +20,11 @@ cd $LIBNAME
 	--disable-warnings \
 	--disable-curldebug \
 	--enable-symbol-hiding \
-	--disable-rt \
 	--disable-largefile \
 	--enable-http \
 	--enable-ftp \
 	--enable-file \
+	--enable-smtp \
 	--disable-ldap \
 	--disable-ldaps \
 	--disable-rtsp \
@@ -35,7 +35,6 @@ cd $LIBNAME
 	--disable-pop3 \
 	--disable-imap \
 	--disable-smb \
-	--disable-smtp \
 	--disable-gopher \
 	--disable-manual \
 	--disable-rtmp \
@@ -48,6 +47,7 @@ cd $LIBNAME
 	--enable-cookies \
 	--enable-shared=no \
 	--enable-static=yes \
+	--enable-pthreads \
 	--with-zlib \
 	--with-mbedtls \
 	--without-ca-path \

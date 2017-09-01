@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CFLAGS="-Os"
+CFLAGS="-Os -D_FILE_OFFSET_BITS=32"
 ORIGPATH=$PATH
 LIBNAME=sqlite
 ROOT=`pwd`

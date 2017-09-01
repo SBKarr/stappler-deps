@@ -15,6 +15,7 @@ function build() {
 
 function export_dir() {
 	rm -f linux/$1/include/png*
+	rm -rf linux/$1/include/freetype
 	
 	mv -f linux/$1/include/libpng16/* linux/$1/include
 	mv -f linux/$1/include/freetype2/* linux/$1/include
