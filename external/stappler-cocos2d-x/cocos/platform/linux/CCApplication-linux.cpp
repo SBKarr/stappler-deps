@@ -82,10 +82,12 @@ int Application::run()
     while (!glview->windowShouldClose())
     {
         lastTime = getCurrentMillSecond();
+    	applicationFrameBegin();
 
         director->mainLoop();
         glview->pollEvents();
 
+    	applicationFrameEnd();
         curTime = getCurrentMillSecond();
         if (curTime - lastTime < _animationInterval)
         {

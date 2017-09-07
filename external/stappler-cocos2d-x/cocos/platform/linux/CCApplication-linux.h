@@ -35,17 +35,16 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
 
-class Application : public ApplicationProtocol
-{
+class Application : public ApplicationProtocol {
 public:
-    /**
-     * @js ctor
-     */
+	/**
+	 * @js ctor
+	 */
 	Application();
-    /**
-     * @js NA
-     * @lua NA
-     */
+	/**
+	 * @js NA
+	 * @lua NA
+	 */
 	virtual ~Application();
 
 	/**
@@ -65,46 +64,46 @@ public:
 	 */
 	static Application* getInstance();
 
-    /** @deprecated Use getInstance() instead */
-    CC_DEPRECATED_ATTRIBUTE static Application* sharedApplication();
-    
+	/** @deprecated Use getInstance() instead */
+	CC_DEPRECATED_ATTRIBUTE static Application* sharedApplication();
+
 	/* override functions */
 	virtual LanguageType getCurrentLanguage();
 
 	/**
-    @brief Get current language iso 639-1 code
-    @return Current language iso 639-1 code
-    */
-    virtual const char * getCurrentLanguageCode();
-    
-  /**
-   @brief Open url in default browser
-   @param String with url to open.
-   @return true if the resource located by the URL was successfully opened; otherwise false.
-   */
-  virtual bool openURL(const std::string &url);
-
+	 @brief Get current language iso 639-1 code
+	 @return Current language iso 639-1 code
+	 */
+	virtual const char * getCurrentLanguageCode();
 
 	/**
-     *  Sets the Resource root path.
-     *  @deprecated Please use FileUtils::getInstance()->setSearchPaths() instead.
-     */
-    CC_DEPRECATED_ATTRIBUTE void setResourceRootPath(const std::string& rootResDir);
-    
+	 @brief Open url in default browser
+	 @param String with url to open.
+	 @return true if the resource located by the URL was successfully opened; otherwise false.
+	 */
+	virtual bool openURL(const std::string &url);
+
+	/**
+	 *  Sets the Resource root path.
+	 *  @deprecated Please use FileUtils::getInstance()->setSearchPaths() instead.
+	 */
+	CC_DEPRECATED_ATTRIBUTE void setResourceRootPath(const std::string& rootResDir);
+
 	/** 
-     *  Gets the Resource root path.
-     *  @deprecated Please use FileUtils::getInstance()->getSearchPaths() instead. 
-     */
-    CC_DEPRECATED_ATTRIBUTE const std::string& getResourceRootPath(void);
-    
-    /**
-     @brief Get target platform
-     */
-    virtual Platform getTargetPlatform();
+	 *  Gets the Resource root path.
+	 *  @deprecated Please use FileUtils::getInstance()->getSearchPaths() instead.
+	 */
+	CC_DEPRECATED_ATTRIBUTE const std::string& getResourceRootPath(void);
+
+	/**
+	 @brief Get target platform
+	 */
+	virtual Platform getTargetPlatform();
+
 protected:
-    long       _animationInterval;  //micro second
-    std::string _resourceRootPath;
-    
+	long _animationInterval;  //micro second
+	std::string _resourceRootPath;
+
 	static Application * sm_pSharedApplication;
 };
 

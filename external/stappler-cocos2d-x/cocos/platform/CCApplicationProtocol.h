@@ -95,6 +95,9 @@ public:
     virtual void applicationFocusLost() = 0;
     virtual void applicationDidReceiveMemoryWarning() = 0;
 
+    virtual void applicationFrameBegin() = 0;
+    virtual void applicationFrameEnd() = 0;
+
     /**
     * @brief    Callback by Director for limit FPS.
     * @param interval The time, expressed in seconds, between current frame and next.
