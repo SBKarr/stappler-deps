@@ -231,7 +231,7 @@ void ActionManager::removeAllActionsFromTarget(Node *target)
             element->currentActionSalvaged = true;
         }
 
-    	for (size_t i = 0; i < element->actions->num; ++ i) {
+    	for (size_t i = 0; i < size_t(element->actions->num); ++ i) {
     		((Action *)(element->actions->arr[i]))->onStopped();
         }
 

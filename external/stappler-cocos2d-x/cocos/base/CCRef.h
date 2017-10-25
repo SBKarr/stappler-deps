@@ -28,7 +28,7 @@ THE SOFTWARE.
 
 #include "platform/CCPlatformMacros.h"
 #include "base/ccConfig.h"
-#include "SLRef.h"
+#include "SPRef.h"
 
 #define CC_REF_LEAK_DETECTION 0
 

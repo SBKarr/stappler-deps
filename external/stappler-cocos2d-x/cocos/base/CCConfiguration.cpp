@@ -124,7 +124,7 @@ void Configuration::gatherGPUInfo()
 	_data.setString((const char*)glGetString(GL_RENDERER), "gl.renderer");
 	_data.setString(glVersion, "gl.version");
 
-	CharReaderBase vReader(glVersion);
+	StringView vReader(glVersion);
 	if (vReader.is("OpenGL ES 3.")) {
 		_supportsEs30Api = true;
 		s_supportedRenderTarget |= toInt(Configuration::RenderTarget::R8) | toInt(Configuration::RenderTarget::RG8)
@@ -153,9 +153,9 @@ void Configuration::gatherGPUInfo()
 	_supportsBlendMinMax = true;
 #endif
 
-	CharReaderBase r(_glExtensions, strlen(_glExtensions));
+	StringView r(_glExtensions, strlen(_glExtensions));
 
-    r.split<CharReaderBase::Chars<' '>>([&] (CharReaderBase &b) {
+    r.split<StringView::Chars<' '>>([&] (StringView &b) {
     	//stappler::log::text("GLext", b.data(), b.size());
     	if (b == "GL_OES_compressed_ETC1_RGB8_texture") {
     		_supportsETC1 = true;
