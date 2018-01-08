@@ -23,10 +23,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 #include "IMEJni.h"
-#include "JniHelper.h"
 
 #if (ANDROID)
 
+#include "JniHelper.h"
 #include <android/log.h>
 #include <string.h>
 #include <jni.h>

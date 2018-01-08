@@ -35,8 +35,6 @@ THE SOFTWARE.
 #include <stdio.h>
 #include <errno.h>
 
-using namespace std;
-
 NS_CC_BEGIN
 
 FileUtils* FileUtils::getInstance()
@@ -88,7 +86,7 @@ bool FileUtilsLinux::init()
     return FileUtils::init();
 }
 
-string FileUtilsLinux::getWritablePath() const
+std::string FileUtilsLinux::getWritablePath() const
 {
     struct stat st;
     stat(_writablePath.c_str(), &st);

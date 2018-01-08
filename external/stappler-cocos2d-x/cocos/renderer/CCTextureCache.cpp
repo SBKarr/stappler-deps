@@ -39,13 +39,10 @@ THE SOFTWARE.
 #include "platform/CCFileUtils.h"
 #include "base/ccUtils.h"
 
-
 #ifdef EMSCRIPTEN
 #include <emscripten/emscripten.h>
 #include "platform/emscripten/CCTextureCacheEmscripten.h"
 #endif // EMSCRIPTEN
-
-using namespace std;
 
 NS_CC_BEGIN
 
@@ -98,8 +95,8 @@ void TextureCache::addImageAsync(const std::string &path, const std::function<vo
     // lazy init
     if (_asyncStructQueue == nullptr)
     {
-        _asyncStructQueue = new queue<AsyncStruct*>();
-        _imageInfoQueue   = new deque<ImageInfo*>();
+        _asyncStructQueue = new std::queue<AsyncStruct*>();
+        _imageInfoQueue   = new std::deque<ImageInfo*>();
 
         // create a new thread to load images
         _loadingThread = new std::thread(&TextureCache::loadImage, this);

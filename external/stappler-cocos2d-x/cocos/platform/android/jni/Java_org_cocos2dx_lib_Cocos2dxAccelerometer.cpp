@@ -1,3 +1,5 @@
+#if (ANDROID)
+
 #include "JniHelper.h"
 #include <jni.h>
 #include "base/CCDirector.h"
@@ -20,3 +22,5 @@ extern "C" {
         Director::getInstance()->getEventDispatcher()->dispatchEvent(&event);
     }    
 }
+
+#endif

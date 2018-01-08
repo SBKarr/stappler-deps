@@ -23,6 +23,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
+#if (LINUX || __MINGW32__ || MACOSX)
+
 #include "CCGLViewImpl-desktop.h"
 
 #include <unordered_map>
@@ -35,7 +37,6 @@ THE SOFTWARE.
 #include "base/CCEventMouse.h"
 #include "base/ccUtils.h"
 
-#if (LINUX || __MINGW32__ || MACOSX)
 #include "SPPlatform.h"
 #include "SPScreen.h"
 
@@ -53,7 +54,6 @@ namespace ime {
 }
 
 NS_SP_PLATFORM_END
-#endif
 
 NS_CC_BEGIN
 
@@ -1015,3 +1015,5 @@ std::string GLViewImpl::getClipboardString() {
 }
 
 NS_CC_END // end of namespace cocos2d;
+
+#endif

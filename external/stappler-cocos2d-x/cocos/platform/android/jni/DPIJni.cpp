@@ -1,7 +1,8 @@
-#include "DPIJni.h"
-#include "jni/JniHelper.h"
 
 #if (ANDROID)
+
+#include "DPIJni.h"
+#include "jni/JniHelper.h"
 
 USING_NS_CC;
 

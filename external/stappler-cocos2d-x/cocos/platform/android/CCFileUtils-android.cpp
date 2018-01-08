@@ -37,8 +37,6 @@ THE SOFTWARE.
 #define  LOG_TAG    "CCFileUtils-android.cpp"
 #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
 
-using namespace std;
-
 NS_CC_BEGIN
 
 AAssetManager* FileUtilsAndroid::assetmanager = nullptr;
@@ -195,11 +193,11 @@ Data FileUtilsAndroid::getData(const std::string& filename, bool forString)
     
     unsigned char* data = nullptr;
     ssize_t size = 0;
-    string fullPath = fullPathForFilename(filename);
+    std::string fullPath = fullPathForFilename(filename);
     
     if (fullPath[0] != '/')
     {
-        string relativePath = string();
+        std::string relativePath = std::string();
 
         size_t position = fullPath.find("assets/");
         if (0 == position) {
@@ -316,11 +314,11 @@ unsigned char* FileUtilsAndroid::getFileData(const std::string& filename, const 
         return 0;
     }
     
-    string fullPath = fullPathForFilename(filename);
+    std::string fullPath = fullPathForFilename(filename);
     
     if (fullPath[0] != '/')
     {
-        string relativePath = string();
+    	std:: string relativePath;
 
         size_t position = fullPath.find("assets/");
         if (0 == position) {
@@ -392,12 +390,12 @@ unsigned char* FileUtilsAndroid::getFileData(const std::string& filename, const 
     return data;
 }
 
-string FileUtilsAndroid::getWritablePath() const
+std::string FileUtilsAndroid::getWritablePath() const
 {
     // Fix for Nexus 10 (Android 4.2 multi-user environment)
     // the path is retrieved through Java Context.getCacheDir() method
-    string dir("");
-    string tmp = getFileDirectoryJNI();
+	std:: string dir("");
+	std::string tmp = getFileDirectoryJNI();
 
     if (tmp.length() > 0)
     {
@@ -412,5 +410,8 @@ string FileUtilsAndroid::getWritablePath() const
 }
 
 NS_CC_END
+
+#undef LOG_TAG
+#undef LOGD
 
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID

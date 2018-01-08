@@ -276,7 +276,7 @@ void TextureAtlas::setupVBOandVAO()
     GL::bindVAO(0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-
+#undef kQuadSize
     CHECK_GL_ERROR_DEBUG();
 }
 

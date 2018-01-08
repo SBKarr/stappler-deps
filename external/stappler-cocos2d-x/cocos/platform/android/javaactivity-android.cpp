@@ -66,5 +66,8 @@ jintArray Java_org_cocos2dx_lib_Cocos2dxActivity_getGLContextAttrs(JNIEnv*  env,
 
 }
 
+#undef LOG_TAG
+#undef LOGD
+
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 

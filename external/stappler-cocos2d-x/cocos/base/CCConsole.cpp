@@ -354,7 +354,7 @@ bool Console::listenOnTCP(int port)
             }
         }
 
-        if (bind(listenfd, res->ai_addr, res->ai_addrlen) == 0)
+        if (::bind(listenfd, res->ai_addr, res->ai_addrlen) == 0)
             break;          /* success */
 
 /* bind error, close and try next one */

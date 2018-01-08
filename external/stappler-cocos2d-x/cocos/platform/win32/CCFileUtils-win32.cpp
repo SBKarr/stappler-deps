@@ -32,8 +32,6 @@ THE SOFTWARE.
 #include <cstdlib>
 #include <regex>
 
-using namespace std;
-
 NS_CC_BEGIN
 
 #define CC_MAX_PATH  512

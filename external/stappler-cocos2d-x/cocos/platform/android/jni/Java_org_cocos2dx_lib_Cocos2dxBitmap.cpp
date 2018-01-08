@@ -23,13 +23,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
+#if (ANDROID)
+
 #include "JniHelper.h"
 #include <string.h>
 #include "base/CCDirector.h"
 #include "../CCApplication.h"
 #include "platform/CCFileUtils.h"
-
-#if (ANDROID)
 
 #include <jni.h>
 

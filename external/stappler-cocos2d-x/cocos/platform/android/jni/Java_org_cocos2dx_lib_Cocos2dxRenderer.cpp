@@ -1,3 +1,6 @@
+
+#if (ANDROID)
+
 #include "base/CCEventDispatcher.h"
 #include "base/CCDirector.h"
 #include "base/CCEventType.h"
@@ -5,8 +8,6 @@
 #include "platform/CCApplication.h"
 #include "platform/CCFileUtils.h"
 #include "JniHelper.h"
-
-#if (ANDROID)
 
 #include <jni.h>
 

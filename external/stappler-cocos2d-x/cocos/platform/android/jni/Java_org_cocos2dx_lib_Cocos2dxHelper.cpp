@@ -22,12 +22,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
+
+#if (ANDROID)
+
 #include <stdlib.h>
 #include <string>
 #include "JniHelper.h"
 #include "CCFileUtils-android.h"
-
-#if (ANDROID)
 
 #include <jni.h>
 #include <android/log.h>
@@ -43,9 +44,8 @@ static EditTextCallback s_editTextCallback = nullptr;
 static void* s_ctx = nullptr;
 
 using namespace cocos2d;
-using namespace std;
 
-string g_apkPath;
+std::string g_apkPath;
 
 extern "C" {
 
@@ -368,5 +368,8 @@ void setStringForKeyJNI(const char* key, const char* value)
         t.env->DeleteLocalRef(stringArg2);
     }
 }
+
+#undef LOG_TAG
+#undef LOGD
 
 #endif

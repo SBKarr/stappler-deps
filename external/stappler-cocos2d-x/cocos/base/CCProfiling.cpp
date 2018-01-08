@@ -25,8 +25,6 @@ THE SOFTWARE.
 ****************************************************************************/
 #include "base/CCProfiling.h"
 
-using namespace std;
-
 NS_CC_BEGIN
 
 // Profiling Categories
@@ -132,7 +130,7 @@ void ProfilingTimer::reset()
     totalTime = 0;
     minTime = 100000000;
     maxTime = 0;
-    _startTime = chrono::high_resolution_clock::now();
+    _startTime = std::chrono::high_resolution_clock::now();
 }
 
 void ProfilingBeginTimingBlock(const char *timerName)
@@ -147,13 +145,13 @@ void ProfilingBeginTimingBlock(const char *timerName)
     timer->numberOfCalls++;
 
     // should be the last instruction in order to be more reliable
-    timer->_startTime = chrono::high_resolution_clock::now();
+    timer->_startTime = std::chrono::high_resolution_clock::now();
 }
 
 void ProfilingEndTimingBlock(const char *timerName)
 {
     // should be the 1st instruction in order to be more reliable
-    auto now = chrono::high_resolution_clock::now();
+    auto now = std::chrono::high_resolution_clock::now();
 
     Profiler* p = Profiler::getInstance();
     ProfilingTimer* timer = p->_activeTimers.at(timerName);
@@ -161,7 +159,7 @@ void ProfilingEndTimingBlock(const char *timerName)
     CCASSERT(timer, "CCProfilingTimer  not found");
 
 
-    long duration = static_cast<long>(chrono::duration_cast<chrono::microseconds>(now - timer->_startTime).count());
+    long duration = static_cast<long>(std::chrono::duration_cast<std::chrono::microseconds>(now - timer->_startTime).count());
 
     timer->totalTime += duration;
     timer->_averageTime1 = (timer->_averageTime1 + duration) / 2.0f;

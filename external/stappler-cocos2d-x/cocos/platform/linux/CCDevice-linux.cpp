@@ -40,8 +40,6 @@ THE SOFTWARE.
 #include "ft2build.h"
 #include FT_FREETYPE_H
 
-using namespace std;
-
 // as FcFontMatch is quite an expensive call, cache the results of getFontFile
 static std::map<std::string, std::string> fontCache;
 

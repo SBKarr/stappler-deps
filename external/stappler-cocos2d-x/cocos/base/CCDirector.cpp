@@ -59,8 +59,6 @@ THE SOFTWARE.
 #define CC_DIRECTOR_STATS_POSITION Director::getInstance()->getVisibleOrigin()
 #endif // CC_DIRECTOR_STATS_POSITION
 
-using namespace std;
-
 NS_CC_BEGIN
 // FIXME: it should be a Director ivar. Move it there once support for multiple directors is added
 

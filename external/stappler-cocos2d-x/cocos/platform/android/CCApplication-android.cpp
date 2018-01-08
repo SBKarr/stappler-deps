@@ -189,5 +189,8 @@ void Application::applicationScreenSizeChanged(int newWidth, int newHeight) {
 
 NS_CC_END
 
+#undef LOG_TAG
+#undef LOGD
+
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 
