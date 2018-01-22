@@ -47,18 +47,15 @@ void MessageBox(const char * msg, const char * title)
     NSString * tmpTitle = (title) ? [NSString stringWithUTF8String : title] : nil;
     NSString * tmpMsg = (msg) ? [NSString stringWithUTF8String : msg] : nil;
 
-	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+	NSAlert *alert = [[NSAlert alloc] init];
 	[alert addButtonWithTitle:@"OK"];
 	[alert setMessageText:tmpMsg];
 	[alert setInformativeText:tmpTitle];
-	[alert setAlertStyle:NSWarningAlertStyle];
+	[alert setAlertStyle:NSAlertStyleWarning];
 
     auto glview = Director::getInstance()->getOpenGLView();
     id window = glview->getCocoaWindow();
-	[alert beginSheetModalForWindow:window
-					  modalDelegate:[window delegate]
-					 didEndSelector:nil
-						contextInfo:nil];
+	[alert beginSheetModalForWindow:window completionHandler:nil];
 }
 
 NS_CC_END
