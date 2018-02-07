@@ -3,3 +3,5 @@ src
 *.la
 *.pc
 .DS_Store
+freetype2/
+*.pc-e

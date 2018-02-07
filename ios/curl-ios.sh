@@ -31,12 +31,13 @@ fi
 	CFLAGS="$CFLAGS -arch $1 -isysroot $4  -miphoneos-version-min=$2" \
 	LDFLAGS="-arch $1 -isysroot $4 -miphoneos-version-min=$2 -L`pwd`/../$1/lib" \
 	CPPFLAGS="-arch $1 -I`pwd`/../$1/include -isysroot $4" \
+	PKG_CONFIG_PATH="`pwd`/../$1/lib/pkgconfig" \
 	--host=$HOST_VALUE \
 	--with-sysroot="$4" \
 	--prefix=`pwd` \
 	--includedir=`pwd`/../$1/include \
 	--libdir=`pwd`/../$1/lib \
-	--disable-shared --enable-static --enable-optimize --enable-symbol-hiding --enable-ftp --disable-ldap --enable-file --disable-ldaps --disable-rtsp --disable-dict --disable-telnet --disable-smb --disable-tftp --disable-pop3 --disable-imap --disable-smtp --disable-gopher --disable-manual --with-darwinssl --enable-threaded-resolver
+	--disable-shared --enable-static --enable-optimize --enable-symbol-hiding --enable-ftp --disable-ldap --enable-file --disable-ldaps --disable-rtsp --disable-dict --disable-telnet --disable-smb --disable-tftp --disable-pop3 --disable-imap --disable-smtp --disable-gopher --disable-manual --with-darwinssl --enable-threaded-resolver --with-brotli
 
 make
 make install

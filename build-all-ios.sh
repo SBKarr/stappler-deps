@@ -4,6 +4,8 @@ function build() {
 	cd ios
 	./jpeg-ios.sh
 	./libpng-ios.sh
+	./libwebp-ios.sh
+	./brotli-ios.sh
 	./curl-ios.sh
 	./freetype-ios.sh
 	./hyphen-ios.sh
@@ -11,8 +13,10 @@ function build() {
 }
 
 function export_dir() {
-	mv -f ios/$1/include/libpng16/* ios/$1/include
-	mv ios/$1/include/freetype2/* ios/$1/include
+	rm -f ios/$1/include/png*
+	rm -rf ios/$1/include/freetype
+	cp ios/$1/include/libpng16/* ios/$1/include
+	cp -R ios/$1/include/freetype2/* ios/$1/include
 }
 
 function export_lib() {
@@ -31,14 +35,6 @@ function export_files() {
 	export_dir armv7
 	export_dir armv7s
 	export_dir arm64
-
-	export_lib libpng16
-	export_lib libjpeg
-	export_lib libcurl
-	export_lib libfreetype
-	export_lib libpixman-1
-	export_lib libcairo
-	export_lib libhyphen
 }
 
 if [ -z "$1" ]; then
