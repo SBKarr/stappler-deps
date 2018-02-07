@@ -56,7 +56,6 @@ export PATH=$ORIGPATH
 
 }
 
-Compile	armeabi		9 "" ""
 Compile	armeabi-v7a	14 '-march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16' '-march=armv7-a -Wl,--fix-cortex-a8'
 Compile	x86 		14 '' ''
 Compile	arm64-v8a 	21 '' ''

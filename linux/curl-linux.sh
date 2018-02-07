@@ -50,6 +50,7 @@ cd $LIBNAME
 	--enable-pthreads \
 	--with-zlib \
 	--with-mbedtls \
+	--with-brotli \
 	--without-ca-path \
 	--without-ca-fallback \
 	--without-ca-bundle \

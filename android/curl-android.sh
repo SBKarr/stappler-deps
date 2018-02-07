@@ -38,6 +38,7 @@ NDKLDFLAGS=$4
 	--host=$TARGET --with-sysroot="$TOOLCHAIN/sysroot" \
 	CPPFLAGS="-I`pwd`/../$1/include" \
 	LDFLAGS="-L`pwd`/../$1/lib" \
+	PKG_CONFIG_PATH="`pwd`/../$1/lib/pkgconfig" \
 	--disable-optimize \
 	--disable-warnings \
 	--disable-curldebug \
@@ -73,6 +74,7 @@ NDKLDFLAGS=$4
 	--libdir=`pwd`/../$1/lib \
 	--prefix=`pwd` \
 	--with-zlib \
+	--with-brotli \
 	--with-mbedtls \
 	--without-ca-path \
 	--without-ca-fallback \
@@ -88,7 +90,6 @@ export PATH=$ORIGPATH
 
 }
 
-Compile	armeabi		9 "" ""
 Compile	armeabi-v7a	14 '-march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16' '-march=armv7-a -Wl,--fix-cortex-a8'
 Compile	x86 		14 '' ''
 Compile	arm64-v8a 	21 '' ''

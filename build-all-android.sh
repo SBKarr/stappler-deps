@@ -12,7 +12,6 @@ TOOLCHAINS_DIR=`pwd`/android/toolchains
 rm -rf $TOOLCHAINS_DIR
 mkdir -p $TOOLCHAINS_DIR
 
-$NDK/build/tools/make_standalone_toolchain.py --arch=arm --api 14 --stl=libc++ --install-dir=$TOOLCHAINS_DIR/armeabi
 $NDK/build/tools/make_standalone_toolchain.py --arch=arm --api 14 --stl=libc++ --install-dir=$TOOLCHAINS_DIR/armeabi-v7a
 $NDK/build/tools/make_standalone_toolchain.py --arch=x86 --api 14 --stl=libc++ --install-dir=$TOOLCHAINS_DIR/x86
 $NDK/build/tools/make_standalone_toolchain.py --arch=x86_64 --api 21 --stl=libc++ --install-dir=$TOOLCHAINS_DIR/x86_64
@@ -26,6 +25,8 @@ function build() {
 	cd android
 	./jpeg-android.sh
 	./libpng-android.sh
+	./libwebp-android.sh
+	./brotli-android.sh
 	./mbedtls-android.sh
 	./curl-android.sh
 	./freetype-android.sh
@@ -43,7 +44,6 @@ function export_dir() {
 
 function export_files() {
 	export_dir arm64-v8a
-	export_dir armeabi
 	export_dir armeabi-v7a
 	export_dir x86
 	export_dir x86_64

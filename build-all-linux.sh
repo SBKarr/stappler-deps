@@ -4,6 +4,8 @@ function build() {
 	cd linux
 	./jpeg-linux.sh
 	./libpng-linux.sh
+	./libwebp-linux.sh
+	./brotli-linux.sh
 	./mbedtls-linux.sh
 	./curl-linux.sh
 	./freetype-linux.sh
