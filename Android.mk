@@ -19,6 +19,38 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/include
 include $(PREBUILT_STATIC_LIBRARY)
 
 
+### WebP
+include $(CLEAR_VARS)
+LOCAL_MODULE := webp_static
+LOCAL_MODULE_FILENAME := webp
+LOCAL_SRC_FILES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/lib/libwebp.a
+LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/include
+include $(PREBUILT_STATIC_LIBRARY)
+
+
+### Brotli
+include $(CLEAR_VARS)
+LOCAL_MODULE := brotli_common_static
+LOCAL_MODULE_FILENAME := brotlicommon
+LOCAL_SRC_FILES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/lib/libbrotlicommon.a
+LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/include
+include $(PREBUILT_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := brotli_dec_static
+LOCAL_MODULE_FILENAME := brotlidec
+LOCAL_SRC_FILES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/lib/libbrotlidec.a
+LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/include
+include $(PREBUILT_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := brotli_enc_static
+LOCAL_MODULE_FILENAME := brotlienc
+LOCAL_SRC_FILES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/lib/libbrotlienc.a
+LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/android/$(TARGET_ARCH_ABI)/include
+include $(PREBUILT_STATIC_LIBRARY)
+
+
 ### Freetype2
 include $(CLEAR_VARS)
 LOCAL_MODULE := cocos_freetype2_static
