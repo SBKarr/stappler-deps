@@ -20,7 +20,8 @@ COCOS2D_STAPPLER_INCLUDES_OBJS := \
 COCOS2D_CLI_SRCS_DIRS := \
 
 COCOS2D_CLI_SRCS_OBJS := \
-	$(COCOS2D_ROOT)/CCCli.scu.cpp
+	$(COCOS2D_ROOT)/CCCli.scu.cpp \
+	$(COCOS2D_ROOT)/cocos/platform/apple/CCFileUtils-apple.mm
 
 COCOS2D_CLI_INCLUDES_OBJS := \
 	$(COCOS2D_ROOT)/cocos \
@@ -34,12 +35,13 @@ COCOS2D_CLI_INCLUDES_OBJS := \
 
 ifdef ANDROID_ARCH
 
-COCOS2D_STAPPLER_SRCS_DIRS += 
+COCOS2D_STAPPLER_SRCS_DIRS +=
 COCOS2D_STAPPLER_INCLUDES_OBJS += $(COCOS2D_ROOT)/cocos/platform/android
 
 else ifdef IOS_ARCH
 
-COCOS2D_STAPPLER_SRCS_DIRS += $(COCOS2D_ROOT)/cocos/platform/ios $(COCOS2D_ROOT)/cocos/platform/apple
+COCOS2D_STAPPLER_SRCS_OBJS += $(COCOS2D_ROOT)/CCPlatformApple.scu.mm
+COCOS2D_STAPPLER_SRCS_DIRS += $(COCOS2D_ROOT)/cocos/platform/apple
 COCOS2D_STAPPLER_INCLUDES_OBJS += $(COCOS2D_ROOT)/cocos/platform/ios $(COCOS2D_ROOT)/cocos/platform/apple
 
 else

@@ -37,7 +37,7 @@ fi
 	--prefix=`pwd` \
 	--includedir=`pwd`/../$1/include \
 	--libdir=`pwd`/../$1/lib \
-	--disable-shared --enable-static --enable-optimize --enable-symbol-hiding --enable-ftp --disable-ldap --enable-file --disable-ldaps --disable-rtsp --disable-dict --disable-telnet --disable-smb --disable-tftp --disable-pop3 --disable-imap --disable-smtp --disable-gopher --disable-manual --with-darwinssl --enable-threaded-resolver --with-brotli
+	--disable-shared --enable-static --enable-optimize --enable-symbol-hiding --enable-ftp --disable-ldap --enable-file --disable-ldaps --disable-rtsp --disable-dict --disable-telnet --disable-smb --disable-tftp --disable-pop3 --disable-imap --disable-smtp --disable-gopher --disable-manual --with-darwinssl --enable-threaded-resolver --with-brotli --without-libidn2
 
 make
 make install
