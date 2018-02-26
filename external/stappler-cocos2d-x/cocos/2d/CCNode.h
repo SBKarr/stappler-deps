@@ -752,6 +752,19 @@ public:
      *
      */
     virtual void addChild(Node* child, int localZOrder, const std::string &name);
+
+    template <typename N, typename ... Args>
+    auto addChildNode(N *child, Args && ... args) -> N * {
+    	addChild(child, std::forward<Args>(args)...);
+    	return child;
+    }
+
+    template <typename N, typename ... Args>
+    auto addChildNode(const stappler::Rc<N> &child, Args && ... args) -> N * {
+    	addChild(child.get(), std::forward<Args>(args)...);
+    	return child.get();
+    }
+
     /**
      * Gets a child from the container with its tag.
      *
@@ -1566,6 +1579,22 @@ public:
      * @return True if added success.
      */
     virtual bool addComponent(Component *component);
+
+    template <typename C>
+    auto addComponentItem(C *component) -> C * {
+    	if (addComponent(component)) {
+    		return component;
+    	}
+    	return nullptr;
+    }
+
+    template <typename C>
+    auto addComponentItem(const stappler::Rc<C> &component) -> C * {
+    	if (addComponent(component.get())) {
+    		return component.get();
+    	}
+    	return nullptr;
+    }
 
     /**
      * Removes a component by its pointer.
