@@ -74,4 +74,12 @@ void Component::setEnabled(bool b) {
 	_enabled = b;
 }
 
+void Component::setTag(uint32_t tag) {
+	_tag = tag;
+}
+
+uint32_t Component::getTag() const {
+	return _tag;
+}
+
 NS_CC_END

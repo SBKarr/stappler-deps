@@ -33,6 +33,8 @@
 #include "base/CCVector.h"
 #include "base/CCProtocols.h"
 #include "math/CCMath.h"
+#include "2d/CCComponentContainer.h"
+#include "2d/CCComponent.h"
 
 NS_CC_BEGIN
 
@@ -1607,6 +1609,15 @@ public:
      * Removes all components
      */
     virtual void removeAllComponents();
+
+    template <typename T>
+    T *getComponentByType() const;
+
+    template <typename T>
+    T *getComponentByType(uint32_t tag) const;
+
+    Component *getComponentByTag(uint32_t tag) const;
+
     /// @} end of component functions
 
     // overrides
@@ -1800,6 +1811,32 @@ protected:
 private:
     CC_DISALLOW_COPY_AND_ASSIGN(Node);
 };
+
+template <typename T>
+auto Node::getComponentByType() const -> T * {
+	if (_componentContainer) {
+		for (auto &it : _componentContainer->getComponents()) {
+			if (auto ret = dynamic_cast<T *>(it)) {
+				return ret;
+			}
+		}
+	}
+	return nullptr;
+}
+
+template <typename T>
+auto Node::getComponentByType(uint32_t tag) const -> T * {
+	if (_componentContainer) {
+		for (auto &it : _componentContainer->getComponents()) {
+			if (it->getTag() == tag) {
+				if (auto ret = dynamic_cast<T *>(it)) {
+					return ret;
+				}
+			}
+		}
+	}
+	return nullptr;
+}
 
 // end of base_node group
 /// @}

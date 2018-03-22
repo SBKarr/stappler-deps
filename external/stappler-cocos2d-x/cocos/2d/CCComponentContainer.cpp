@@ -84,6 +84,10 @@ void ComponentContainer::removeAll() {
 	_components.clear();
 }
 
+const Vector<Component *> &ComponentContainer::getComponents() const {
+	return _components;
+}
+
 void ComponentContainer::onVisit(Renderer *renderer, const Mat4& parentTransform, uint32_t parentFlags, const std::vector<int> &zPath) {
 	CC_SAFE_RETAIN(_owner);
 	for (auto iter : _components) {

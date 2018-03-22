@@ -65,10 +65,14 @@ public:
 	void setOwner(Node *pOwner);
 	Node* getOwner() const;
 
+	void setTag(uint32_t);
+	uint32_t getTag() const;
+
 protected:
 	Node *_owner = nullptr;
 	bool _enabled = true;
 	bool _running = false;
+	uint32_t _tag = stappler::maxOf<uint32_t>();
 };
 
 NS_CC_END

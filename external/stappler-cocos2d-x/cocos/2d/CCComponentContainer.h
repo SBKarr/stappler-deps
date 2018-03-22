@@ -54,6 +54,8 @@ public:
     virtual bool remove(Component *com);
     virtual void removeAll();
 
+    virtual const Vector<Component *> &getComponents() const;
+
     virtual void onVisit(Renderer *renderer, const Mat4& parentTransform, uint32_t parentFlags, const std::vector<int> &);
 
     virtual void onEnter();
@@ -64,6 +66,7 @@ public:
 	virtual void onContentSizeDirty();
 	virtual void onTransformDirty();
 	virtual void onReorderChildDirty();
+
 public:
     bool isEmpty() const;
 

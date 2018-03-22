@@ -1810,6 +1810,17 @@ void Node::removeAllComponents()
         _componentContainer->removeAll();
 }
 
+Component *Node::getComponentByTag(uint32_t tag) const {
+	if (_componentContainer) {
+		for (auto &it : _componentContainer->getComponents()) {
+			if (it->getTag() == tag) {
+				return it;
+			}
+		}
+	}
+	return nullptr;
+}
+
 // MARK: Opacity and Color
 
 GLubyte Node::getOpacity(void) const
