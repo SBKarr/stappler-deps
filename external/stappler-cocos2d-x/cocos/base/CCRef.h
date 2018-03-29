@@ -77,6 +77,7 @@ public:
 class CC_DLL Ref : public stappler::layout::Ref
 {
 public:
+	virtual ~Ref();
     /**
      * Releases the ownership sometime soon automatically.
      *

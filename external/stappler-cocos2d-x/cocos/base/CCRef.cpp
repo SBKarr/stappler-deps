@@ -29,6 +29,10 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
 
+Ref::~Ref() {
+
+}
+
 Ref* Ref::autorelease()
 {
     PoolManager::getInstance()->getCurrentPool()->addObject(this);
