@@ -97,6 +97,20 @@ const char* GLProgram::ATTRIBUTE_NAME_BLEND_WEIGHT = "a_blendWeight";
 const char* GLProgram::ATTRIBUTE_NAME_BLEND_INDEX = "a_blendIndex";
 
 static const char * COCOS2D_SHADER_UNIFORMS =
+    "#ifdef GL_ES\n"
+        "uniform mediump mat4 CC_PMatrix;\n"
+        "uniform mediump mat4 CC_MVMatrix;\n"
+        "uniform mediump mat4 CC_MVPMatrix;\n"
+        "uniform mediump mat3 CC_NormalMatrix;\n"
+        "uniform mediump vec4 CC_Time;\n"
+        "uniform mediump vec4 CC_SinTime;\n"
+        "uniform mediump vec4 CC_CosTime;\n"
+        "uniform mediump vec4 CC_Random01;\n"
+        "uniform sampler2D CC_Texture0;\n"
+        "uniform sampler2D CC_Texture1;\n"
+        "uniform sampler2D CC_Texture2;\n"
+        "uniform sampler2D CC_Texture3;\n"
+    "#else\n"
         "uniform mat4 CC_PMatrix;\n"
         "uniform mat4 CC_MVMatrix;\n"
         "uniform mat4 CC_MVPMatrix;\n"
@@ -109,6 +123,7 @@ static const char * COCOS2D_SHADER_UNIFORMS =
         "uniform sampler2D CC_Texture1;\n"
         "uniform sampler2D CC_Texture2;\n"
         "uniform sampler2D CC_Texture3;\n"
+    "#endif\n"
         "//CC INCLUDES END\n\n";
 
 static const std::string EMPTY_DEFINE;
