@@ -25,6 +25,7 @@ COCOS2D_CLI_SRCS_OBJS := \
 
 COCOS2D_CLI_INCLUDES_OBJS := \
 	$(COCOS2D_ROOT)/cocos \
+	$(COCOS2D_ROOT)/cocos/platform/android \
 	$(COCOS2D_ROOT)/cocos/platform/desktop \
 	$(COCOS2D_ROOT)/cocos/platform/linux \
 	$(COCOS2D_ROOT)/cocos/platform/windows \
