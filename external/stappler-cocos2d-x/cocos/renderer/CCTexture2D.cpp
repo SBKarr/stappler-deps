@@ -643,16 +643,6 @@ bool Texture2D::init(Texture2D::PixelFormat pixelFormat, int pixelsWide, int pix
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
 
-#if CC_ENABLE_CACHE_TEXTURE_DATA
-    if (_antialiasEnabled) {
-        TexParams texParams = {(GLuint)(_hasMipmaps?GL_LINEAR_MIPMAP_NEAREST:GL_LINEAR),GL_LINEAR,GL_NONE,GL_NONE};
-        VolatileTextureMgr::setTexParameters(this, texParams);
-    } else {
-        TexParams texParams = {(GLuint)(_hasMipmaps?GL_NEAREST_MIPMAP_NEAREST:GL_NEAREST),GL_NEAREST,GL_NONE,GL_NONE};
-        VolatileTextureMgr::setTexParameters(this, texParams);
-    }
-#endif
-
     // clean possible GL error
     GLenum err = glGetError();
     if (err != GL_NO_ERROR) {
@@ -664,9 +654,6 @@ bool Texture2D::init(Texture2D::PixelFormat pixelFormat, int pixelsWide, int pix
 
         err = glGetError();
     	if (err != GL_NO_ERROR) {
-#ifdef GL_RED_EXT
-			CCLOG("cocos2d: Texture2D: GL_RED_EXT enabled");
-#endif
     		CCLOG("cocos2d: Texture2D: Error uploading texture: (0x%04X, 0x%04X) . glError: 0x%04X %d %d", info.internalFormat, info.format, err, pixelsWide, pixelsHigh);
     		return false;
     	}
