@@ -7,14 +7,14 @@
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
    met:
-  
+
        * Redistributions of source code must retain the above copyright
    notice, this list of conditions and the following disclaimer.
        * Redistributions in binary form must reproduce the above
    copyright notice, this list of conditions and the following disclaimer
    in the documentation and/or other materials provided with the
    distribution.
-  
+
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -52,8 +52,8 @@ CRC32           0.43 GB/s     9
 MD5-32          0.33 GB/s    10       Ronald L. Rivest
 SHA1-32         0.28 GB/s    10
 
-Q.Score is a measure of quality of the hash function. 
-It depends on successfully passing SMHasher test set. 
+Q.Score is a measure of quality of the hash function.
+It depends on successfully passing SMHasher test set.
 10 is a perfect score.
 */
 
@@ -96,6 +96,7 @@ XXH32() :
 
 void*         XXH32_init   (unsigned int seed);
 XXH_errorcode XXH32_update (void* state, const void* input, int len);
+XXH_errorcode XXH32_resetState(void* state, unsigned int seed);
 unsigned int  XXH32_digest (void* state);
 
 /*
@@ -110,8 +111,8 @@ This pointer must be provided as "void* state" parameter for XXH32_update().
 XXH32_update() can be called as many times as necessary.
 The user must provide a valid (allocated) input.
 The function returns an error code, with 0 meaning OK, and any other value meaning there is an error.
-Note that "len" is type "int", which means it is limited to 2^31-1. 
-If your data is larger, it is recommended to chunk your data into blocks 
+Note that "len" is type "int", which means it is limited to 2^31-1.
+If your data is larger, it is recommended to chunk your data into blocks
 of size for example 2^30 (1GB) to avoid any "int" overflow issue.
 
 Finally, you can end the calculation anytime, by using XXH32_digest().
@@ -156,7 +157,7 @@ To free memory context, use XXH32_digest(), or free().
 #define XXH32_feed   XXH32_update
 #define XXH32_result XXH32_digest
 #define XXH32_getIntermediateResult XXH32_intermediateDigest
-
+#define XXH32_reset XXH32_resetState
 
 
 #if defined (__cplusplus)
