@@ -6,10 +6,7 @@ COCOS2D_STAPPLER_SRCS_OBJS := \
 	$(COCOS2D_ROOT)/CCBase.scu.cpp \
 	$(COCOS2D_ROOT)/CCRenderer.scu.cpp \
 	$(COCOS2D_ROOT)/CCPlatform.scu.cpp \ \
-	$(COCOS2D_ROOT)/external/lz4/lib/lz4.c \
-	$(COCOS2D_ROOT)/external/lz4/lib/lz4frame.c \
-	$(COCOS2D_ROOT)/external/lz4/lib/lz4hc.c \
-	$(COCOS2D_ROOT)/external/xxhash/xxhash.c
+	$(COCOS2D_ROOT)/external/lz4/lib/lz4.c
 
 COCOS2D_STAPPLER_INCLUDES_OBJS := \
 	$(COCOS2D_ROOT)/cocos \
@@ -26,10 +23,7 @@ COCOS2D_CLI_SRCS_DIRS := \
 COCOS2D_CLI_SRCS_OBJS := \
 	$(COCOS2D_ROOT)/CCCli.scu.cpp \
 	$(COCOS2D_ROOT)/cocos/platform/apple/CCFileUtils-apple.mm \
-	$(COCOS2D_ROOT)/external/lz4/lib/lz4.c \
-	$(COCOS2D_ROOT)/external/lz4/lib/lz4frame.c \
-	$(COCOS2D_ROOT)/external/lz4/lib/lz4hc.c \
-	$(COCOS2D_ROOT)/external/xxhash/xxhash.c
+	$(COCOS2D_ROOT)/external/lz4/lib/lz4.c
 
 COCOS2D_CLI_INCLUDES_OBJS := \
 	$(COCOS2D_ROOT)/cocos \
