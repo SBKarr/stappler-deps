@@ -1,38 +1,29 @@
 #!/bin/bash
 # Android/ARM, armeabi (ARMv5TE soft-float), Android 2.2+ (Froyo)
 
+if [ -z "$ANDROID_NDK_ROOT" ]; then
+NDK="/home/sbkarr/android/ndk"
+else
+NDK="$ANDROID_NDK_ROOT"
+fi
+
 CFLAGS="-Os"
-ORIGPATH=$PATH
 LIBNAME=mbedtls
 ROOT=`pwd`
 
 Compile () {
 
-ARCH=$1
-NDKABI=$2
-TARGET=arm-linux-androideabi
+NDKP=$2
+NDKPAR=$3
 
-if [ "$1" == "x86" ]; then
-TARGET=i686-linux-android
-fi
-if [ "$1" == "arm64-v8a" ]; then
-TARGET=aarch64-linux-android
-fi
-if [ "$1" == "x86_64" ]; then
-TARGET=x86_64-linux-android
-fi
-
-TOOLCHAIN=$ROOT/toolchains/$1
-export PATH=$TOOLCHAIN/bin:$PATH
-NDKP=$TOOLCHAIN/bin/$TARGET
-NDKF="$CFLAGS --sysroot $TOOLCHAIN/sysroot"
-NDKARCH=$3
-NDKLDFLAGS=$4
+NDKF="$CFLAGS"
+NDKARCH=$4
+NDKLDFLAGS=$5
 
 rm -f ../src/mbedtls/library/libmbed*
 
 make -C ../src/mbedtls clean
-make -C ../src/mbedtls CC=$NDKP-clang AR=$NDKP-ar CFLAGS="$NDKF $NDKARCH" lib
+make -C ../src/mbedtls CC=$NDKP-clang AR=$NDKPAR-ar CFLAGS="$NDKF $NDKARCH" lib
 
 mkdir -p `pwd`/$1/include
 mkdir -p `pwd`/$1/lib
@@ -40,11 +31,11 @@ mkdir -p `pwd`/$1/lib
 cp -r ../src/mbedtls/include/mbedtls `pwd`/$1/include
 cp -RP ../src/mbedtls/library/libmbed* `pwd`/$1/lib
 
-export PATH=$ORIGPATH
-
 }
 
-Compile	armeabi-v7a	14 '-march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16' '-march=armv7-a -Wl,--fix-cortex-a8'
-Compile	x86 		14 '' ''
-Compile	arm64-v8a 	21 '' ''
-Compile	x86_64		21 '' ''
+NDKPATH=$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin
+
+Compile armeabi-v7a $NDKPATH/armv7a-linux-androideabi19 $NDKPATH/arm-linux-androideabi '-march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16' '-march=armv7-a -Wl,--fix-cortex-a8'
+Compile	x86         $NDKPATH/i686-linux-android19       $NDKPATH/i686-linux-android	  '' ''
+Compile	arm64-v8a   $NDKPATH/aarch64-linux-android21    $NDKPATH/aarch64-linux-android '' ''
+Compile	x86_64      $NDKPATH/x86_64-linux-android21     $NDKPATH/x86_64-linux-android  '' ''

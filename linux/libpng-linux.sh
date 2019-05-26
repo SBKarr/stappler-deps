@@ -16,13 +16,19 @@ cd $LIBNAME
 	--libdir=`pwd`/../$1/lib \
 	--prefix=`pwd` \
 	--enable-shared=no \
-	--enable-static=yes
+	--enable-static=yes \
+	--disable-unversioned-links
 
 make
 make install
 
 cd -
 rm -rf $LIBNAME
+
+cp -f $1/include/libpng16/* $1/include
+rm -rf $1/include/libpng16
+mv -f $1/lib/libpng16.a $1/lib/libpng.a
+mv -f $1/lib/libpng16.la $1/lib/libpng.la
 
 }
 

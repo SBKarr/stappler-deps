@@ -30,6 +30,9 @@ make install
 cd -
 rm -rf $LIBNAME
 
+cp -rf $1/include/freetype2/* $1/include
+rm -rf $1/include/freetype2
+
 }
 
 Compile x86_64

@@ -20,8 +20,6 @@ cd $LIBNAME
 	--enable-static=yes \
 	--disable-gl \
 	--disable-sdl \
-	--disable-png \
-	--disable-jpeg \
 	--disable-tiff \
 	--disable-gif \
 	--disable-wic

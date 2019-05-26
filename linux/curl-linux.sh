@@ -51,6 +51,7 @@ cd $LIBNAME
 	--with-zlib \
 	--with-mbedtls \
 	--with-brotli \
+	--with-libidn2 \
 	--without-ca-path \
 	--without-ca-fallback \
 	--without-ca-bundle \

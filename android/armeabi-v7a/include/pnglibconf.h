@@ -1,8 +1,9 @@
 /* pnglibconf.h - library build configuration */
 
-/* libpng version 1.6.34, September 29, 2017 */
+/* libpng version 1.6.37 */
 
-/* Copyright (c) 1998-2017 Glenn Randers-Pehrson */
+/* Copyright (c) 2018-2019 Cosmin Truta */
+/* Copyright (c) 1998-2002,2004,2006-2018 Glenn Randers-Pehrson */
 
 /* This code is released under the libpng license. */
 /* For conditions of distribution and use, see the disclaimer */
@@ -16,7 +17,7 @@
 /* options */
 #define PNG_16BIT_SUPPORTED
 #define PNG_ALIGNED_MEMORY_SUPPORTED
-#define PNG_ARM_NEON_API_SUPPORTED
+/*#undef PNG_ARM_NEON_API_SUPPORTED*/
 /*#undef PNG_ARM_NEON_CHECK_SUPPORTED*/
 #define PNG_BENIGN_ERRORS_SUPPORTED
 #define PNG_BENIGN_READ_ERRORS_SUPPORTED
@@ -189,7 +190,6 @@
 /* end of options */
 /* settings */
 #define PNG_API_RULE 0
-#define PNG_ARM_NEON_OPT 1
 #define PNG_DEFAULT_READ_MACROS 1
 #define PNG_GAMMA_THRESHOLD_FIXED 5000
 #define PNG_IDAT_READ_SIZE PNG_ZBUF_SIZE
@@ -209,7 +209,7 @@
 #define PNG_USER_HEIGHT_MAX 1000000
 #define PNG_USER_WIDTH_MAX 1000000
 #define PNG_ZBUF_SIZE 8192
-#define PNG_ZLIB_VERNUM 0x1230
+#define PNG_ZLIB_VERNUM 0x1270
 #define PNG_Z_DEFAULT_COMPRESSION (-1)
 #define PNG_Z_DEFAULT_NOFILTER_STRATEGY 0
 #define PNG_Z_DEFAULT_STRATEGY 1
