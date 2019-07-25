@@ -61,6 +61,13 @@ function get_glfw() {
 	mv glfw-3.3 glfw
 }
 
+function get_libidn2 {
+	wget ftp://ftp.gnu.org/gnu/libidn/libidn2-2.2.0.tar.gz
+	tar -xzf libidn2-2.2.0.tar.gz
+	rm libidn2-2.2.0.tar.gz
+	mv libidn2-2.2.0 libidn2
+}
+
 get_jpeg
 get_png
 get_webp
@@ -70,5 +77,6 @@ get_curl
 get_freetype
 get_sqlite
 get_glfw
+get_libidn2
 
 cd -
