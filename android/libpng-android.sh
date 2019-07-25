@@ -6,7 +6,7 @@ else
 NDK="$ANDROID_NDK_ROOT"
 fi
 
-CFLAGS="-Os"
+CFLAGS="-Os -fPIC"
 CONFFLAGS="--enable-shared=no --enable-static=yes --with-pic=yes --disable-unversioned-links"
 LIBNAME=libpng
 ROOT=`pwd`

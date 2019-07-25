@@ -7,7 +7,7 @@ else
 NDK="$ANDROID_NDK_ROOT"
 fi
 
-CFLAGS="-Os"
+CFLAGS="-Os -fPIC"
 LIBNAME=mbedtls
 ROOT=`pwd`
 

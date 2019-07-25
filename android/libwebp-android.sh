@@ -6,7 +6,7 @@ else
 NDK="$ANDROID_NDK_ROOT"
 fi
 
-CFLAGS="-Os"
+CFLAGS="-Os -fPIC"
 LIBNAME=libwebp
 ROOT=`pwd`
 
