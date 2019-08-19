@@ -12,6 +12,7 @@ function build() {
 	cd android
 	./jpeg-android.sh
 	./libpng-android.sh
+	./gif-android.sh
 	./libwebp-android.sh
 	./brotli-android.sh
 	./mbedtls-android.sh
