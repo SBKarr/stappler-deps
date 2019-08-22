@@ -25,10 +25,10 @@ cd $LIBNAME
 	--enable-ftp \
 	--enable-file \
 	--enable-smtp \
+	--enable-proxy \
 	--disable-ldap \
 	--disable-ldaps \
 	--disable-rtsp \
-	--disable-proxy \
 	--disable-dict \
 	--disable-telnet \
 	--disable-tftp \
