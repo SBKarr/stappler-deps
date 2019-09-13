@@ -70,26 +70,6 @@
 NS_CC_BEGIN
 
 extern const char* cocos2dVersion(void);
-//TODO: these general utils should be in a separate class
-//
-// Trimming functions were taken from: http://stackoverflow.com/a/217605
-//
-// trim from start
-static std::string &ltrim(std::string &s) {
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
-    return s;
-}
-
-// trim from end
-static std::string &rtrim(std::string &s) {
-    s.erase(std::find_if(s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
-    return s;
-}
-
-// trim from both ends
-static std::string &trim(std::string &s) {
-    return ltrim(rtrim(s));
-}
 
 static std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
     std::stringstream ss(s);
@@ -811,64 +791,6 @@ ssize_t Console::readBytes(int fd, char* buffer, size_t maxlen, bool* more)
 
 bool Console::parseCommand(int fd)
 {
-    char buf[512];
-    bool more_data;
-    auto h = readBytes(fd, buf, 6, &more_data);
-    if( h < 0)
-    {
-        return false;
-    }
-    if(!more_data)
-    {
-        buf[h] = 0;
-    }
-    else
-    {
-        char *pb = buf + 6;
-        auto r = readline(fd, pb, sizeof(buf)-6);
-        if(r < 0)
-        {
-            const char err[] = "Unknown error!\n";
-            sendPrompt(fd);
-            send(fd, err, sizeof(err),0);
-            return false;
-        }
-    }
-    std::string cmdLine;
-
-    std::vector<std::string> args;
-    cmdLine = std::string(buf);
-
-    args = split(cmdLine, ' ');
-    if(args.empty())
-    {
-        const char err[] = "Unknown command. Type 'help' for options\n";
-        send(fd, err, sizeof(err),0);
-        sendPrompt(fd);
-        return true;
-    }
-
-    auto it = _commands.find(trim(args[0]));
-    if(it != _commands.end())
-    {
-        std::string args2;
-        for(size_t i = 1; i < args.size(); ++i)
-        {
-            if(i > 1)
-            {
-                args2 += ' ';
-            }
-            args2 += trim(args[i]);
-
-        }
-        auto cmd = it->second;
-        cmd.callback(fd, args2);
-    }else if(strcmp(buf, "\r\n") != 0) {
-        const char err[] = "Unknown command. Type 'help' for options\n";
-        send(fd, err, sizeof(err),0);
-    }
-    sendPrompt(fd);
-
     return true;
 }
 
