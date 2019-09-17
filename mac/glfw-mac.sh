@@ -2,14 +2,18 @@
 
 SAVED_PATH=$PATH
 
+VERSION="10.14"
+
 Compile () {
+
+export MACOSX_DEPLOYMENT_TARGET=$VERSION
 
 mkdir -p glfw
 cd glfw
 
 export CC="clang"
 export CPP="clang -E"
-export CFLAGS="-Os -fPIC"
+export CFLAGS="-Os -fPIC -mmacosx-version-min=$VERSION"
 
 cmake ../../src/glfw
 

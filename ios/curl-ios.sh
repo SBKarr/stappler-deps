@@ -37,7 +37,11 @@ fi
 	--prefix=`pwd` \
 	--includedir=`pwd`/../$1/include \
 	--libdir=`pwd`/../$1/lib \
-	--disable-shared --enable-static --enable-optimize --enable-symbol-hiding --enable-ftp --disable-ldap --enable-file --disable-ldaps --disable-rtsp --disable-dict --disable-telnet --disable-smb --disable-tftp --disable-pop3 --disable-imap --disable-smtp --disable-gopher --disable-manual --with-darwinssl --enable-threaded-resolver --with-brotli --without-libidn2
+	--disable-shared --enable-static --enable-optimize --enable-symbol-hiding \
+	--enable-ftp --disable-ldap --enable-file --disable-ldaps --disable-rtsp \
+	--disable-dict --disable-telnet --disable-smb --disable-tftp --disable-pop3 \
+	--disable-imap --disable-gopher --disable-manual --with-darwinssl \
+	--enable-threaded-resolver --with-brotli --with-libidn2
 
 make
 make install
@@ -46,8 +50,5 @@ cd -
 rm -rf $LIBNAME
 }
 
-Compile i386 6.0 $SDK_INCLUDE_SIM $SYSROOT_SIM
-Compile x86_64 6.0 $SDK_INCLUDE_SIM $SYSROOT_SIM
-Compile armv7 6.0 $SDK_INCLUDE_OS $SYSROOT_OS
-Compile armv7s 6.0 $SDK_INCLUDE_OS $SYSROOT_OS
-Compile arm64 6.0 $SDK_INCLUDE_OS $SYSROOT_OS
+Compile x86_64 11.0 $SDK_INCLUDE_SIM $SYSROOT_SIM
+Compile arm64 11.0 $SDK_INCLUDE_OS $SYSROOT_OS

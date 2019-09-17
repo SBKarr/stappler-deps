@@ -45,10 +45,16 @@ make install
 
 cd -
 rm -rf $LIBNAME
+
+rm $1/include/png.h $1/include/pngconf.h $1/include/pnglibconf.h
+cp -f $1/include/libpng16/* $1/include
+rm -rf $1/include/libpng16
+rm $1/lib/libpng.a
+rm $1/lib/libpng.la
+mv -f $1/lib/libpng16.a $1/lib/libpng.a
+mv -f $1/lib/libpng16.la $1/lib/libpng.la
+
 }
 
-Compile i386 6.0 $SDK_INCLUDE_SIM $SYSROOT_SIM
-Compile x86_64 6.0 $SDK_INCLUDE_SIM $SYSROOT_SIM
-Compile armv7 6.0 $SDK_INCLUDE_OS $SYSROOT_OS
-Compile armv7s 6.0 $SDK_INCLUDE_OS $SYSROOT_OS
-Compile arm64 6.0 $SDK_INCLUDE_OS $SYSROOT_OS
+Compile x86_64 11.0 $SDK_INCLUDE_SIM $SYSROOT_SIM
+Compile arm64 11.0 $SDK_INCLUDE_OS $SYSROOT_OS

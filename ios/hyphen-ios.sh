@@ -14,7 +14,7 @@ SDK_INCLUDE_OS="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.pl
 SYSROOT_SIM="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk"
 SYSROOT_OS="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk"
 
-cd ../src/$LIBNAME
+cd ../external/$LIBNAME
 autoreconf -fvi
 cd -
 
@@ -28,7 +28,7 @@ Compile () {
 		HOST_VALUE=arm-apple-darwin
 	fi
 
-    ../../src/$LIBNAME/configure \
+    ../../external/$LIBNAME/configure \
 		CC=$XCODE_BIN_PATH/clang \
 		LD=$XCODE_BIN_PATH/ld \
 		CPP="$XCODE_BIN_PATH/clang -E" \
@@ -51,8 +51,5 @@ Compile () {
 	rm -rf $LIBNAME
 }
 
-Compile i386 6.0 $SDK_INCLUDE_SIM $SYSROOT_SIM
-Compile x86_64 6.0 $SDK_INCLUDE_SIM $SYSROOT_SIM
-Compile armv7 6.0 $SDK_INCLUDE_OS $SYSROOT_OS
-Compile armv7s 6.0 $SDK_INCLUDE_OS $SYSROOT_OS
-Compile arm64 6.0 $SDK_INCLUDE_OS $SYSROOT_OS
+Compile x86_64 11.0 $SDK_INCLUDE_SIM $SYSROOT_SIM
+Compile arm64 11.0 $SDK_INCLUDE_OS $SYSROOT_OS

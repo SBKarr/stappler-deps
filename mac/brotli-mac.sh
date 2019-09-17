@@ -3,14 +3,18 @@
 SAVED_PATH=$PATH
 LIBNAME="brotli"
 
+VERSION="10.14"
+
 Compile () {
+
+export MACOSX_DEPLOYMENT_TARGET=$VERSION
 
 mkdir -p $LIBNAME
 cd $LIBNAME
 
 ../../src/$LIBNAME/configure-cmake \
-	CC="clang" CFLAGS="-Os -fPIC" \
-	CXX="clang" CXXFLAGS="-Os -fPIC" \
+	CC="clang" CFLAGS="-Os -fPIC -mmacosx-version-min=$VERSION" \
+	CXX="clang" CXXFLAGS="-Os -fPIC -mmacosx-version-min=$VERSION" \
 	--prefix=`pwd` \
 	--libdir=`pwd`/../$1/lib \
 	--includedir=`pwd`/../$1/include \
@@ -18,9 +22,14 @@ cd $LIBNAME
 
 make brotlienc-static brotlidec-static
 
+mkdir -p `pwd`/../$1/lib/pkgconfig
 mv -f *.pc `pwd`/../$1/lib/pkgconfig
+
 sed -i -e 's/ -lbrotlidec/ -lbrotlidec -lbrotlicommon/g' `pwd`/../$1/lib/pkgconfig/libbrotlidec.pc
 sed -i -e 's/ -lbrotlienc/ -lbrotlienc -lbrotlicommon/g' `pwd`/../$1/lib/pkgconfig/libbrotlienc.pc
+
+mkdir -p `pwd`/../$1/lib/pkgconfig
+mkdir -p `pwd`/../$1/include/brotli
 
 mv -f libbrotlienc-static.a `pwd`/../$1/lib/libbrotlienc.a
 mv -f libbrotlidec-static.a `pwd`/../$1/lib/libbrotlidec.a

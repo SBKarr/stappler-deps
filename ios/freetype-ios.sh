@@ -19,13 +19,18 @@ mkdir -p $LIBNAME
 cd $LIBNAME
 
 #export IPHONEOS_DEPLOYMENT_TARGET="$2"
-HOST_VALUE=$5
+HOST_VALUE=$1-apple-darwin
+if [ "$1" == "arm64" ]; then
+HOST_VALUE=arm-apple-darwin
+fi
 
-export CCexe=gcc
+#export CCexe=clang
+
+INCLUDE_PATH=`pwd`/../$1/include
 
 ../../src/$LIBNAME/configure \
+	CC_BUILD=/usr/bin/clang \
 	CC=$XCODE_BIN_PATH/clang \
-	LD=$XCODE_BIN_PATH/ld \
 	CPP="$XCODE_BIN_PATH/clang -E" \
 	CFLAGS="$CFLAGS -arch $1 -isysroot $4  -miphoneos-version-min=$2" \
 	LDFLAGS="-arch $1 -isysroot $4 -miphoneos-version-min=$2 -L`pwd`/../$1/lib" \
@@ -43,10 +48,11 @@ make CCexe=gcc install
 
 cd -
 rm -rf $LIBNAME
+
+cp -rf $1/include/freetype2/* $1/include
+rm -rf $1/include/freetype2
+
 }
 
-Compile i386 6.0 $SDK_INCLUDE_SIM $SYSROOT_SIM i386-apple-darwin
-Compile x86_64 6.0 $SDK_INCLUDE_SIM $SYSROOT_SIM x86_64-apple-darwin
-Compile armv7 6.0 $SDK_INCLUDE_OS $SYSROOT_OS armv7-apple-darwin
-Compile armv7s 6.0 $SDK_INCLUDE_OS $SYSROOT_OS armv7s-apple-darwin
-Compile arm64 6.0 $SDK_INCLUDE_OS $SYSROOT_OS arm-apple-darwin
+Compile x86_64 11.0 $SDK_INCLUDE_SIM $SYSROOT_SIM
+Compile arm64 11.0 $SDK_INCLUDE_OS $SYSROOT_OS

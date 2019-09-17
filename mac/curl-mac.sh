@@ -3,15 +3,19 @@
 SAVED_PATH=$PATH
 LIBNAME="curl"
 
+VERSION="10.14"
+
 Compile () {
+
+export MACOSX_DEPLOYMENT_TARGET=$VERSION
 
 mkdir -p $LIBNAME
 cd $LIBNAME
 
 ../../src/$LIBNAME/configure \
-	CC="clang" CFLAGS="-Os -fPIC" \
-	CPP="clang -E" CPPFLAGS="-I`pwd`/../$1/include" \
-	LDFLAGS="-L`pwd`/../$1/lib" \
+	CC="clang" CFLAGS="-Os -fPIC -mmacosx-version-min=$VERSION" \
+	CPP="clang -E" CPPFLAGS="-I`pwd`/../$1/include -mmacosx-version-min=$VERSION" \
+	LDFLAGS="-L`pwd`/../$1/lib -mmacosx-version-min=$VERSION" \
 	PKG_CONFIG_PATH="`pwd`/../$1/lib/pkgconfig" \
 	--includedir=`pwd`/../$1/include \
 	--libdir=`pwd`/../$1/lib \
@@ -20,7 +24,6 @@ cd $LIBNAME
 	--disable-warnings \
 	--disable-curldebug \
 	--enable-symbol-hiding \
-	--disable-rt \
 	--disable-largefile \
 	--enable-http \
 	--enable-ftp \
@@ -35,7 +38,6 @@ cd $LIBNAME
 	--disable-pop3 \
 	--disable-imap \
 	--disable-smb \
-	--disable-smtp \
 	--disable-gopher \
 	--disable-manual \
 	--disable-rtmp \
@@ -50,13 +52,15 @@ cd $LIBNAME
 	--enable-static=yes \
 	--with-zlib \
 	--with-darwinssl \
+	--enable-pthreads \
 	--enable-threaded-resolver \
 	--without-ca-path \
 	--without-ca-fallback \
 	--without-ca-bundle \
 	--without-libmetalink \
 	--without-libssh2 \
-	--without-libidn \
+	--with-libidn2 \
+	--with-brotli \
 	--without-ssl \
 	--without-librtmp
 

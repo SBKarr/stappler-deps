@@ -3,19 +3,23 @@
 SAVED_PATH=$PATH
 LIBNAME="hyphen"
 
-cd ../src/$LIBNAME
+VERSION="10.14"
+
+cd ../external/$LIBNAME
 autoreconf -fvi
 cd -
 
 Compile () {
 
+export MACOSX_DEPLOYMENT_TARGET=$VERSION
+
 mkdir -p $LIBNAME
 cd $LIBNAME
 
-../../src/$LIBNAME/configure \
-	CC="clang" CFLAGS="-g -Os -fPIC" \
-	CPP="clang -E" CPPFLAGS="-I`pwd`/../$1/include" \
-	LDFLAGS="-L`pwd`/../$1/lib" \
+../../external/$LIBNAME/configure \
+	CC="clang" CFLAGS="-g -Os -fPIC -mmacosx-version-min=$VERSION" \
+	CPP="clang -E" CPPFLAGS="-I`pwd`/../$1/include -mmacosx-version-min=$VERSION" \
+	LDFLAGS="-L`pwd`/../$1/lib -mmacosx-version-min=$VERSION" \
 	--includedir=`pwd`/../$1/include \
 	--libdir=`pwd`/../$1/lib \
 	--prefix=`pwd` \

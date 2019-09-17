@@ -56,10 +56,10 @@ function get_curl() {
 
 function get_freetype() {
 	rm -rf freetype
-	wget https://download.savannah.gnu.org/releases/freetype/freetype-2.10.0.tar.bz2
-	tar -xjf freetype-2.10.0.tar.bz2
-	rm freetype-2.10.0.tar.bz2
-	mv freetype-2.10.0 freetype
+	wget https://download.savannah.gnu.org/releases/freetype/freetype-2.10.1.tar.gz
+	tar -xzf freetype-2.10.1.tar.gz
+	rm freetype-2.10.1.tar.gz
+	mv freetype-2.10.1 freetype
 }
 
 function get_sqlite() {
