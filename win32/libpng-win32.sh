@@ -9,8 +9,6 @@ Compile () {
 mkdir -p libpng
 cd libpng
 
-export PATH="/usr/bin/$1-w64-mingw32:$SAVED_PATH"
-
 ../../src/libpng/configure --host=$1-w64-mingw32 \
 	--includedir=`pwd`/../$1/include \
 	--libdir=`pwd`/../$1/lib \
@@ -27,4 +25,3 @@ rm -rf libpng
 }
 
 Compile x86_64
-Compile i686

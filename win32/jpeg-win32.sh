@@ -8,8 +8,6 @@ Compile () {
 mkdir -p jpeg
 cd jpeg
 
-export PATH="/usr/bin/$1-w64-mingw32:$SAVED_PATH"
-
 ../../src/jpeg/configure --host=$1-w64-mingw32 \
 	--includedir=`pwd`/../$1/include \
 	--libdir=`pwd`/../$1/lib \
@@ -27,4 +25,3 @@ rm -rf jpeg
 }
 
 Compile x86_64
-Compile i686
