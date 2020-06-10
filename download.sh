@@ -48,10 +48,10 @@ function get_mbedtls() {
 
 function get_curl() {
 	rm -rf curl
-	wget https://curl.haxx.se/download/curl-7.65.3.tar.gz
-	tar -xzf curl-7.65.3.tar.gz
-	rm curl-7.65.3.tar.gz
-	mv curl-7.65.3 curl
+	wget https://curl.haxx.se/download/curl-7.70.0.tar.gz
+	tar -xzf curl-7.70.0.tar.gz
+	rm curl-7.70.0.tar.gz
+	mv curl-7.70.0 curl
 }
 
 function get_freetype() {
