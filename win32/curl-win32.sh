@@ -61,10 +61,13 @@ export PATH="/usr/bin/$1-w64-mingw32:$SAVED_PATH"
 	--without-libidn \
 	--without-libidn2 \
 	--without-ssl \
-	--without-librtmp
+	--without-librtmp \
+	--without-nghttp2 \
+	--without-libpsl
 
 make
 make install
+make install-data
 
 cd -
 rm -rf curl
